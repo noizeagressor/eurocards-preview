@@ -1,0 +1,11 @@
+[Unit]
+Description=Renew and verify the EuroCards origin TLS certificate
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/sync-origin-certificate
+TimeoutStartSec=20min
+UMask=0077

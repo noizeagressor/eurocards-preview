@@ -1,0 +1,199 @@
+#!/usr/bin/python3 -I
+"""Forced SSH command for publishing the static EuroCards origin."""
+import fcntl
+import gzip
+import http.client
+import io
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import signal
+import sys
+import tarfile
+import tempfile
+
+ROOT = Path("/srv/eurocards")
+HOST = "origin.evrocards.ru"
+PORT = 18840
+SHA = r"[0-9a-f]{40}"
+ASSET = r"[A-Za-z0-9][A-Za-z0-9_-]{0,100}"
+PUBLIC_FILE = re.compile(
+    rf"(?:{ASSET}\.(?:html|css|js)|journal/{ASSET}\.html|"
+    rf"assets/(?:{ASSET}/)*{ASSET}\.(?:svg|webp|png|jpg|jpeg|ico|woff2)|"
+    rf"assets/(?:{ASSET}/)*{ASSET}-LICENSE\.txt|\.nojekyll)"
+)
+MAX_PACK = 10 * 1024 * 1024
+MAX_TAR = 40 * 1024 * 1024
+MAX_FILE = 6 * 1024 * 1024
+RETAIN = 5
+
+
+def unpack(payload, destination):
+    # Bound the expanded tar itself, including headers and metadata records.
+    with gzip.GzipFile(fileobj=io.BytesIO(payload)) as compressed:
+        raw = compressed.read(MAX_TAR + 1)
+    if len(raw) > MAX_TAR:
+        raise ValueError("Tar exceeds size limit")
+    with tarfile.open(fileobj=io.BytesIO(raw), mode="r:") as archive:
+        for number, member in enumerate(archive, 1):
+            name = member.name.removeprefix("./")
+            if number > 1500 or len(name) > 240:
+                raise ValueError("Too many entries or path too long")
+            if member.isdir() and (name in (".", "", "journal", "assets")
+                                   or re.fullmatch(rf"assets(?:/{ASSET})+", name)):
+                continue
+            if (not PUBLIC_FILE.fullmatch(name) or not member.isreg()
+                    or re.search(r"(?:^|[/_.-])(?:secrets?|credentials?|passwords?|tokens?|private[-_]keys?)(?:[/_.-]|$)", name, re.I)
+                    or member.sparse is not None or not 0 <= member.size <= MAX_FILE
+                    or name == ".nojekyll" and member.size):
+                raise ValueError("Unexpected file in public archive")
+            target = destination / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with archive.extractfile(member) as source, target.open("xb") as output:
+                shutil.copyfileobj(source, output)
+
+    for name in ("index.html", "info.html", "catalog.js", "finder.js", "styles.css", "assets/favicon.svg"):
+        if not (destination / name).is_file() or not (destination / name).stat().st_size:
+            raise ValueError("Incomplete site: " + name)
+    if (b"EuroCards" not in (destination / "index.html").read_bytes()
+            or not any((destination / "journal").glob("*.html"))):
+        raise ValueError("Missing EuroCards homepage or blog")
+
+
+def current_history():
+    live = ROOT / "live"
+    if not live.is_symlink():
+        if live.exists():
+            raise ValueError("Invalid live pointer")
+        return []
+    target = os.readlink(live)
+    if not re.fullmatch(rf"states/{SHA}(?:\.{SHA}){{0,{RETAIN - 1}}}", target):
+        raise ValueError("Invalid release history")
+    return target.removeprefix("states/").split(".")
+
+
+def activate(history):
+    live = ROOT / "live"
+    if not history:
+        live.unlink(missing_ok=True)
+        return
+    state = ROOT / "states" / ".".join(history)
+    state.mkdir(exist_ok=True)
+    for label, sha in zip(("current", "previous"), history):
+        link = state / label
+        target = "../../releases/" + sha
+        if not link.is_symlink():
+            link.symlink_to(target)
+        elif os.readlink(link) != target:
+            raise ValueError("Invalid release pointer")
+    # Both public aliases resolve through this single atomic switch.
+    temporary = ROOT / ".live-next"
+    temporary.unlink(missing_ok=True)
+    temporary.symlink_to(state.relative_to(ROOT))
+    os.replace(temporary, live)
+
+
+def check_origin(sha):
+    current = ROOT / "current"
+    for path, expected in (("/release.json", (current / "release.json").read_bytes()),
+                           ("/", (current / "index.html").read_bytes())):
+        conn = http.client.HTTPConnection("127.0.0.1", PORT, timeout=5)
+        try:
+            conn.request("GET", path, headers={"Host": HOST, "Accept-Encoding": "identity", "Cache-Control": "no-cache"})
+            response = conn.getresponse()
+            if response.status != 200 or response.read(len(expected) + 1) != expected:
+                raise ValueError("Origin verification failed for " + path)
+        finally:
+            conn.close()
+    if json.loads((current / "release.json").read_bytes()) != {"revision": sha}:
+        raise ValueError("Wrong revision marker")
+
+
+def retain(history, old_history):
+    # Retain the previously served generation for requests racing the switch.
+    allowed = set(history + old_history)
+    for item in (ROOT / "releases").iterdir():
+        if re.fullmatch(SHA, item.name) and item.name not in allowed:
+            shutil.rmtree(item)
+    for state in (ROOT / "states").iterdir():
+        if re.fullmatch(rf"{SHA}(?:\.{SHA})*", state.name) and state.name not in (
+            ".".join(history), ".".join(old_history)
+        ):
+            shutil.rmtree(state)
+
+
+def store_release(sha, payload):
+    releases = ROOT / "releases"
+    with tempfile.TemporaryDirectory(prefix=".incoming-", dir=releases) as tmp:
+        staged = Path(tmp) / "site"
+        staged.mkdir()
+        unpack(payload, staged)
+        (staged / "release.json").write_text(json.dumps({"revision": sha}) + "\n", encoding="utf-8")
+        target = releases / sha
+        if not target.exists():
+            os.replace(staged, target)
+            return
+        # A repeated delivery of the same revision must have identical content.
+        known = {f.relative_to(target) for f in target.rglob("*") if f.is_file()}
+        new = {f.relative_to(staged) for f in staged.rglob("*") if f.is_file()}
+        if known != new or any((target / f).read_bytes() != (staged / f).read_bytes() for f in known):
+            raise ValueError("This revision already has different contents")
+
+
+def dispatch(command, stream):
+    if command == "status":
+        action, sha = "status", None
+    else:
+        match = re.fullmatch(rf"(deploy|rollback) ({SHA})", command)
+        if not match:
+            raise ValueError("Expected status, deploy <revision> or rollback <revision>")
+        action, sha = match.groups()
+    payload = stream.read(MAX_PACK + 1) if action == "deploy" else None
+    signal.alarm(0)
+    if payload is not None and len(payload) > MAX_PACK:
+        raise ValueError("Compressed package exceeds size limit")
+
+    os.umask(0o022)
+    with (ROOT / ".deploy.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        old = current_history()
+        new = old
+        if action == "deploy":
+            (ROOT / "releases").mkdir(exist_ok=True)
+            (ROOT / "states").mkdir(exist_ok=True)
+            for label in ("current", "previous"):
+                alias = ROOT / label
+                if not alias.is_symlink():
+                    alias.symlink_to("live/" + label)
+                elif os.readlink(alias) != "live/" + label:
+                    raise ValueError("Unexpected public alias")
+            store_release(sha, payload)
+            new = [sha, *(entry for entry in old if entry != sha)][:RETAIN]
+        elif action == "rollback" and old and old[0] == sha:
+            if len(old) == 1:
+                raise ValueError("There is no previous release")
+            new = old[1:]
+        if new != old or action == "deploy":
+            activate(new)
+            try:
+                check_origin(new[0])
+            except Exception:
+                # A failed repeat should also restore the last known good release.
+                restore = old[1:] if action == "deploy" and old == new and len(old) > 1 else old
+                activate(restore)
+                retain(restore, old)
+                raise
+            retain(new, old)
+        return {"revision": new[0] if new else None, "previous": new[1] if len(new) > 1 else None}
+
+
+if __name__ == "__main__":
+    try:
+        # Bound receipt of a slow/incomplete upload before entering the lock.
+        signal.alarm(180)
+        result = dispatch(os.environ.get("SSH_ORIGINAL_COMMAND", ""), sys.stdin.buffer)
+        print(json.dumps(result))
+    except (OSError, ValueError, EOFError, tarfile.TarError, http.client.HTTPException) as exc:
+        sys.exit(str(exc))

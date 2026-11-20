@@ -1,0 +1,10 @@
+[Unit]
+Description=Check the EuroCards origin certificate twice a day
+
+[Timer]
+OnCalendar=*-*-* 02,14:15:00
+RandomizedDelaySec=45min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

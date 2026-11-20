@@ -1,0 +1,194 @@
+#!/usr/bin/python3 -I
+"""Renew the EuroCards origin certificate and reload the shared edge when needed."""
+import argparse
+import fcntl
+import hashlib
+import http.client
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import socket
+import ssl
+import subprocess
+import sys
+import tempfile
+import time
+
+HOST = "origin.evrocards.ru"
+PREMSALES = "origin.premsales.ru"
+EDGE = "premsales-live-edge"
+VOLUME = "premsales-edge-certificates"
+CONFIG = "/etc/caddy/Caddyfile"
+CERTBOT = Path("/var/lib/eurocards/letsencrypt")
+ACME = Path("/var/lib/eurocards/acme")
+
+
+def output(*args, data=None):
+    return subprocess.run(args, input=data, stdout=subprocess.PIPE,
+                          check=True, timeout=30).stdout
+
+
+def read_tls(host, path):
+    with socket.create_connection(("127.0.0.1", 443), timeout=5) as raw:
+        with ssl.create_default_context().wrap_socket(raw, server_hostname=host) as tls:
+            leaf = hashlib.sha256(tls.getpeercert(binary_form=True)).digest()
+            tls.sendall(f"GET {path} HTTP/1.1\r\nHost: {host}\r\nConnection: close\r\n\r\n".encode("ascii"))
+            with http.client.HTTPResponse(tls) as response:
+                response.begin()
+                if response.status != 200:
+                    raise ValueError(f"{host}{path} returned {response.status}")
+                return leaf, response.read(4096)
+
+
+def verify_premsales():
+    _, body = read_tls(PREMSALES, "/_premsales_origin_ready")
+    if b"premsales-ovh-ready" not in body:
+        raise ValueError("PREMSALES origin identity check failed")
+
+
+def origin_is_current(expected):
+    leaf, body = read_tls(HOST, "/release.json")
+    if not re.fullmatch(r"[0-9a-f]{40}", str(json.loads(body).get("revision", ""))):
+        raise ValueError("EuroCards release marker is missing")
+    return leaf == expected
+
+
+def wait_for_edge(expected):
+    for attempt in range(8):
+        try:
+            if not origin_is_current(expected):
+                raise ValueError("Edge is serving a different certificate")
+            verify_premsales()
+            return
+        except (ValueError, OSError, http.client.HTTPException):
+            if attempt == 7:
+                raise
+            time.sleep(1)
+
+
+def validate_pair(directory):
+    cert, key = directory / "fullchain.pem", directory / "privkey.pem"
+    output("openssl", "x509", "-in", cert, "-noout", "-checkend", "86400")
+    host_result = output("openssl", "x509", "-in", cert, "-noout", "-checkhost", HOST)
+    if b" does match certificate" not in host_result:
+        raise ValueError("Certificate hostname mismatch")
+    output("openssl", "verify", "-purpose", "sslserver", "-verify_hostname", HOST, "-untrusted", cert, cert)
+    public = output("openssl", "x509", "-in", cert, "-noout", "-pubkey")
+    if (output("openssl", "pkey", "-pubin", "-outform", "DER", data=public)
+            != output("openssl", "pkey", "-in", key, "-pubout", "-outform", "DER")):
+        raise ValueError("Certificate and key do not match")
+    der = output("openssl", "x509", "-in", cert, "-outform", "DER")
+    return hashlib.sha256(der).digest()
+
+
+def point_at(base, target):
+    active = base / "active"
+    if target is None:
+        active.unlink(missing_ok=True)
+    else:
+        next_link = base / ".active-next"
+        next_link.unlink(missing_ok=True)
+        next_link.symlink_to(target)
+        os.replace(next_link, active)
+
+
+def validate_config():
+    output("docker", "exec", EDGE, "caddy", "validate", "--config", CONFIG, "--adapter", "caddyfile")
+
+
+def signal_edge():
+    output("docker", "kill", "--signal=USR1", EDGE)
+
+
+def synchronize(install_only):
+    if not install_only:
+        subprocess.run([
+            "docker", "run", "--rm", "--pull=never",
+            "--mount", f"type=bind,src={CERTBOT},dst=/etc/letsencrypt",
+            "--mount", f"type=bind,src={ACME},dst=/var/www/certbot",
+            "certbot/certbot:latest", "renew", "--cert-name", HOST,
+            "--non-interactive", "--no-random-sleep-on-renew",
+        ], check=True, timeout=900)
+    mount = Path(output("docker", "volume", "inspect", "--format", "{{.Mountpoint}}", VOLUME).decode().strip())
+    if not mount.is_absolute() or not mount.is_dir():
+        raise ValueError("Certificate volume mountpoint is missing")
+    base = mount / "eurocards-edge"
+    versions = base / "versions"
+    for directory in (base, versions):
+        directory.mkdir(mode=0o700, exist_ok=True)
+        if directory.is_symlink() or not directory.is_dir() or directory.stat().st_uid != 0:
+            raise ValueError("Unexpected EuroCards certificate directory")
+        directory.chmod(0o700)
+    active = base / "active"
+    old = os.readlink(active) if active.is_symlink() else None
+    if ((active.exists() and old is None)
+            or (old and not re.fullmatch(r"versions/[a-f0-9]{64}", old))):
+        raise ValueError("Unexpected active certificate pointer")
+    source = CERTBOT / "live" / HOST
+    with tempfile.TemporaryDirectory(prefix=".cert-", dir=versions) as work:
+        candidate = Path(work) / "pair"
+        candidate.mkdir(mode=0o700)
+        for name in ("fullchain.pem", "privkey.pem"):
+            shutil.copyfile(source / name, candidate / name)
+            (candidate / name).chmod(0o600)
+        leaf = validate_pair(candidate)
+        fingerprint = hashlib.sha256((candidate / "fullchain.pem").read_bytes()).hexdigest()
+        target = "versions/" + fingerprint
+        final = base / target
+        if final.exists():
+            if final.is_symlink() or validate_pair(final) != leaf or (candidate / "fullchain.pem").read_bytes() != (final / "fullchain.pem").read_bytes():
+                raise ValueError("Invalid stored certificate generation")
+        else:
+            os.replace(candidate, final)
+    if install_only:
+        if old and old != target:
+            raise ValueError("Use normal renewal to replace an active certificate")
+        point_at(base, target)
+        print("EuroCards certificate installed for initial HTTPS configuration")
+        return
+    verify_premsales()
+    if old == target:
+        try:
+            already_served = origin_is_current(leaf)
+        except (ValueError, OSError, http.client.HTTPException):
+            already_served = False
+        if already_served:
+            print("EuroCards certificate already active and verified")
+            return
+    point_at(base, target)
+    signalled = False
+    try:
+        validate_config()
+        signal_edge()
+        signalled = True
+        wait_for_edge(leaf)
+    except Exception:
+        point_at(base, old)
+        if signalled and old is not None:
+            validate_config()
+            signal_edge()
+            wait_for_edge(validate_pair(base / old))
+        raise
+    # Keep the previously active generation available for a manual rollback.
+    for directory in versions.iterdir():
+        if (re.fullmatch(r"[a-f0-9]{64}", directory.name) and not directory.is_symlink()
+                and "versions/" + directory.name not in (old, target)):
+            shutil.rmtree(directory)
+    print("EuroCards certificate reloaded; both origins verified")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--install-only", action="store_true", help="stage the first already-issued certificate")
+    args = parser.parse_args()
+    if os.geteuid() != 0:
+        sys.exit("Run as root")
+    os.umask(0o077)
+    try:
+        with (CERTBOT / ".sync-edge.lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            synchronize(args.install_only)
+    except (OSError, ValueError, subprocess.SubprocessError, http.client.HTTPException) as exc:
+        sys.exit(str(exc))

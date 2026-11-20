@@ -1,0 +1,13 @@
+http://origin.evrocards.ru {
+	@challenge path /.well-known/acme-challenge/*
+	handle @challenge {
+		reverse_proxy eurocards-origin:8080
+	}
+	handle {
+		redir https://origin.evrocards.ru{uri} 308
+	}
+}
+https://origin.evrocards.ru {
+	tls /etc/letsencrypt/eurocards-edge/active/fullchain.pem /etc/letsencrypt/eurocards-edge/active/privkey.pem
+	reverse_proxy eurocards-origin:8080
+}

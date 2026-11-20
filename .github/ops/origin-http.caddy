@@ -1,0 +1,3 @@
+http://origin.evrocards.ru {
+	reverse_proxy eurocards-origin:8080
+}

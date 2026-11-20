@@ -1,0 +1,50 @@
+name: Deploy EuroCards to OVH
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Deploy, bootstrap OVH before DNS is ready, or restore the preceding release
+        type: choice
+        options: [deploy, bootstrap, rollback]
+        default: deploy
+      expected_revision:
+        description: For rollback only, the full commit SHA currently live on OVH
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eurocards-ovh
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Test release switching and rollback
+        run: python3 -B -m unittest discover -s .github/ops -v
+
+      - name: Check pages, JavaScript, assets and build the static archive
+        run: python3 -B .github/scripts/build.py "$RUNNER_TEMP/eurocards.tar.gz"
+
+      - name: Check the rendered card catalog and application links
+        run: python3 -B .github/scripts/browser.py
+
+      - name: Deploy and verify the live release
+        env:
+          DEPLOY_OPERATION: ${{ inputs.operation || 'deploy' }}
+          EXPECTED_REVISION: ${{ inputs.expected_revision }}
+          EUROCARDS_DEPLOY_KEY: ${{ secrets.EUROCARDS_DEPLOY_KEY }}
+          EUROCARDS_PUBLIC_URLS: ${{ vars.EUROCARDS_PUBLIC_URLS }}
+        run: bash .github/scripts/deploy.sh

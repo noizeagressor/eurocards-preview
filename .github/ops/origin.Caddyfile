@@ -1,0 +1,20 @@
+{
+	admin off
+	auto_https off
+}
+:8080 {
+	@challenge path /.well-known/acme-challenge/*
+	handle @challenge {
+		root * /srv/acme
+		file_server
+	}
+	handle {
+		root * /srv/eurocards/current
+		header Cache-Control "no-cache"
+		header X-Content-Type-Options nosniff
+		header Referrer-Policy strict-origin-when-cross-origin
+		header /release.json Cache-Control "no-store"
+		encode zstd gzip
+		file_server
+	}
+}
