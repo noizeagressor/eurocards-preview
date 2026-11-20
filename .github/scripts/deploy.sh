@@ -38,8 +38,8 @@ if [[ "$mode" == rollback ]]; then
   previous="$(jq -er '.previous | select(test("^[0-9a-f]{40}$"))' <<< "$live")"
   rolled="$(remote "rollback $before")"
   jq -e --arg previous "$previous" '.revision == $previous' <<< "$rolled" >/dev/null
-  python3 -B .github/scripts/verify.py "$previous"
   printf 'Restored release `%s`.\n' "$previous" >> "$GITHUB_STEP_SUMMARY"
+  python3 -B .github/scripts/verify.py "$previous"
   exit 0
 fi
 
@@ -51,6 +51,8 @@ restore_previous() {
     echo "Checking rollback of $GITHUB_SHA to $before"
     restored="$(remote "rollback $GITHUB_SHA")" || return 1
     jq -e --arg before "$before" '.revision == $before' <<< "$restored" >/dev/null || return 1
+    printf 'Active OVH release after rollback check: `%s`.\n' "$before" >> "$GITHUB_STEP_SUMMARY"
+    python3 -B .github/scripts/verify.py "$before"
   fi
 }
 
@@ -64,13 +66,4 @@ if [[ "$mode" == bootstrap ]]; then
 elif ! python3 -B .github/scripts/verify.py "$GITHUB_SHA"; then
   restore_previous
   exit 1
-else
-  {
-    printf 'Release `%s` verified at https://origin.evrocards.ru/.\n' "$GITHUB_SHA"
-    if [[ -n "${EUROCARDS_PUBLIC_URLS//[[:space:]]/}" ]]; then
-      printf 'Public CDN URLs verified: %s\n' "$EUROCARDS_PUBLIC_URLS"
-    else
-      echo 'Public CDN checks are pending EUROCARDS_PUBLIC_URLS configuration.'
-    fi
-  } >> "$GITHUB_STEP_SUMMARY"
 fi

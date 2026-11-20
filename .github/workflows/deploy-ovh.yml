@@ -35,6 +35,9 @@ jobs:
       - name: Test release switching and rollback
         run: python3 -B -m unittest discover -s .github/ops -v
 
+      - name: Test public DNS and CDN release checks
+        run: python3 -B -m unittest discover -s .github/scripts -v
+
       - name: Check pages, JavaScript, assets and build the static archive
         run: python3 -B .github/scripts/build.py "$RUNNER_TEMP/eurocards.tar.gz"
 
