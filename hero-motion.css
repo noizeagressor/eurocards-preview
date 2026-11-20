@@ -1,0 +1,56 @@
+.alpine-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  --alpine-image: url('assets/hero-alpine-wide-ocean.webp');
+  --alpine-position: 60% 50%;
+}
+.alpine-scene > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--alpine-position);
+}
+
+@media (max-width: 1180px) {
+  .alpine-scene {
+    --alpine-image: url('assets/hero-alpine-tablet-ocean.webp');
+    --alpine-position: 50% 50%;
+  }
+}
+@media (min-width: 701px) and (max-width: 800px) {
+  .alpine-scene { --alpine-position: 97% 50%; }
+}
+@media (max-width: 700px) {
+  .alpine-scene {
+    --alpine-image: url('assets/hero-alpine-mobile.webp');
+    --alpine-position: center bottom;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (mask-composite: intersect) {
+    .hero-scene-running .alpine-scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--alpine-image) var(--alpine-position) / cover no-repeat;
+      mask-image: linear-gradient(90deg, transparent 38%, black 52%), linear-gradient(180deg, transparent 8%, black 21%, black 79%, transparent 94%);
+      mask-composite: intersect;
+      animation: alpine-drift 8s ease-in-out infinite alternate;
+    }
+    body:has(dialog[open]) .hero-scene-running .alpine-scene::after { animation-play-state: paused; }
+    @media (max-width: 700px) {
+      .hero-scene-running .alpine-scene::after {
+        mask-image: linear-gradient(180deg, transparent 45%, black 58%, black 89%, transparent 98%);
+      }
+    }
+  }
+}
+@keyframes alpine-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}

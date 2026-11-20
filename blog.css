@@ -1,0 +1,44 @@
+.article-wrap .article-cover {
+  aspect-ratio: 16 / 9;
+}
+.article-body .blog-example {
+  margin-top: 36px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid #d8dfec;
+  border-radius: 18px;
+  background: #eff2f8;
+}
+.blog-example h2 {
+  font-size: clamp(22px, 3vw, 28px);
+}
+.blog-example p:last-child {
+  margin-bottom: 0;
+}
+.blog-calculation {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: clamp(14px, 2vw, 17px);
+  font-variant-numeric: tabular-nums;
+}
+.blog-calculation caption {
+  margin-bottom: 12px;
+  text-align: left;
+  font-size: 14px;
+  color: #495164;
+}
+.blog-calculation th, .blog-calculation td {
+  padding: 12px 6px;
+  border-bottom: 1px solid #d5d9e0;
+}
+.blog-calculation :is(th, td):not(:first-child) {
+  text-align: right;
+}
+.blog-calculation th {
+  font-weight: 590;
+}
+.breadcrumbs a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

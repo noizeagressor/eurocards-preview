@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfefe">
+  <meta name="description" content="Подберите зарубежную карту для поездок, подписок и выплат. Сравните четыре направления EuroCards и узнайте, что входит в сопровождение.">
+  <title>EuroCards — зарубежные карты и счета</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=fa3e11a5e4">
+  <link rel="stylesheet" href="editorial.css?v=62c3cd3f69">
+  <link rel="stylesheet" href="card-art.css?v=ecbb94d3ec">
+  <link rel="stylesheet" href="dialog.css?v=4cf099286a">
+  <link rel="stylesheet" href="hero-motion.css?v=45bd333abf">
+  <link rel="stylesheet" href="cover.css?v=7ac19eed03">
+  <link rel="stylesheet" href="benefits.css?v=602607e4d9">
+  <link rel="stylesheet" href="finder.css?v=1b3baa6938">
+  <script defer src="catalog.js?v=7ddd690abe"></script>
+  <script defer src="page.js?v=af540112d0"></script>
+  <script defer src="hero-motion.js?v=f699afb195"></script>
+  <script defer src="finder.js?v=cdf03fdcbe"></script>
+  <script defer src="benefits.js?v=8d5bca61e6"></script>
+</head>
+<body id="top">
+  <a href="#main" class="skip-link">К содержанию</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="symbol-bank" aria-hidden="true" focusable="false">
+    <!-- Utility icons from Lucide. See assets/Lucide-LICENSE.txt. -->
+    <symbol id="i-id" viewBox="0 0 24 24"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="m16 19 2 2 4-4"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-support" viewBox="0 0 24 24"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></symbol>
+    <symbol id="i-compare" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 3v18"/></symbol>
+    <symbol id="i-diagonal" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M20.5 3.9 2.8 10.7c-1.2.5-1.2 1.2-.2 1.5l4.5 1.4 1.7 5.1c.2.6.1.8.7.8.4 0 .6-.2.8-.4l2.2-2.2 4.6 3.4c.9.5 1.5.2 1.7-.8l3-14.3c.3-1.1-.4-1.7-1.3-1.3Zm-12 9.4 9.9-6.2c.5-.3.8-.2.4.1l-8.1 7.4-.3 3.1-1.9-4.4Z"/></symbol>
+  </svg>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="wordmark" href="#top" aria-label="EuroCards, в начало">EURO<span>CARDS</span></a>
+      <nav class="primary-nav" id="primary-nav" aria-label="Основная навигация">
+        <a href="#cards">Карты</a><a href="#benefits">Возможности</a><a href="#services">Сервисы</a><a href="#journal">Блог</a><a class="nav-support" href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer">Поддержка в Telegram</a>
+      </nav>
+      <div class="header-actions">
+        <a class="support-link" href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer" aria-label="Поддержка в Telegram"><svg class="icon" aria-hidden="true"><use href="#i-support"/></svg><span>Поддержка</span></a>
+        <a class="header-issue" href="#cards">Оформить карту</a>
+        <button type="button" class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <picture class="alpine-scene" aria-hidden="true">
+        <source media="(max-width: 700px)" srcset="assets/hero-alpine-mobile.webp" width="935" height="1683">
+        <source media="(max-width: 1180px)" srcset="assets/hero-alpine-tablet-ocean.webp" width="1200" height="816">
+        <img src="assets/hero-alpine-wide-ocean.webp" width="1870" height="841" alt="" fetchpriority="high">
+      </picture>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1 id="hero-title">Карта<br>зарубежного банка <em>за несколько дней</em></h1>
+          <div class="hero-intro sbp-intro"><img class="sbp-symbol" src="assets/brands/sbp-symbol.svg" width="36" height="42" alt=""><div><p class="sbp-title">Пополнение в рублях<span class="visually-hidden"> через Систему быстрых платежей</span></p><p>Подберём карту для поездок и подписок, уточним курс до перевода.</p></div></div>
+          <div class="hero-actions">
+            <a class="button primary-button" href="#cards">Выпустить карту<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4.5 12h14m-6-6 6 6-6 6"/></svg></a>
+          </div>
+          <div class="hero-wallets" aria-label="Мобильные кошельки">
+            <div class="wallet-coins">
+              <a href="#wallets" data-wallet="apple" class="wallet-coin pay-apple" aria-label="Apple Pay — как подключить"><img src="assets/brands/applepay.svg" alt="" width="34" height="34"></a>
+              <a href="#wallets" data-wallet="google" class="wallet-coin pay-google" aria-label="Google Pay — как подключить"><img src="assets/brands/googlepay.svg" alt="" width="34" height="34"></a>
+              <a href="#services" data-category="china" class="wallet-coin pay-ali" aria-label="Alipay — уточнить совместимость"><img src="assets/brands/alipay.svg" alt="" width="25" height="25"></a>
+              <a href="#services" data-category="china" class="wallet-coin pay-wechat" aria-label="WeChat Pay — уточнить совместимость"><img src="assets/brands/wechat.svg" alt="" width="27" height="27"></a>
+            </div>
+            <p>Alipay и WeChat Pay<br> проверяем для вашей карты</p>
+          </div>
+        </div>
+        <div class="service-float">
+          <a href="#services" class="float-heading">Что хотите оплатить?<svg class="icon" aria-hidden="true"><use href="#i-diagonal"/></svg></a>
+          <span class="float-brands">
+            <a href="#services" data-category="digital"><img src="assets/services/chatgpt.webp" alt="" width="35" height="35">ChatGPT</a>
+            <a href="#services" data-category="work"><img src="assets/services/icloud.webp" alt="" width="35" height="35">iCloud</a>
+            <a href="#services" data-category="travel"><img src="assets/services/uber.webp" alt="" width="35" height="35">Uber</a>
+            <a href="#services" data-category="travel"><img src="assets/services/booking.webp" alt="" width="35" height="35">Booking</a>
+            <a href="#services" data-category="shops"><img src="assets/services/zara.webp" alt="" width="35" height="35">Zara</a>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell catalog-section" id="cards" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <div><h2 id="catalog-title">Зарубежные карты</h2><p>Для поездок, подписок и переводов. Выберите карту под свою задачу.</p></div>
+        <button class="compare-button" type="button" data-compare aria-haspopup="dialog" aria-controls="product-dialog"><svg class="icon" aria-hidden="true"><use href="#i-compare"/></svg>Сравнить карты</button>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Фильтр по задаче">
+        <button type="button" data-filter="all" aria-pressed="true">Все карты <span>4</span></button>
+        <button type="button" data-filter="travel" aria-pressed="false">Поездки</button>
+        <button type="button" data-filter="subscriptions" aria-pressed="false">Подписки</button>
+        <button type="button" data-filter="europe" aria-pressed="false">Переводы в Европе</button>
+        <button type="button" data-filter="us" aria-pressed="false">Выплаты из США</button>
+      </div>
+      <p id="catalog-count" class="visually-hidden" role="status"></p>
+      <div id="product-grid" class="product-grid"></div>
+      <noscript>
+        <ul>
+          <li><strong>Orange Card · Великобритания</strong> — поездки, подписки и переводы в евро.</li>
+          <li><strong>Gold Card · Болгария</strong> — европейский IBAN, SEPA и SWIFT.</li>
+          <li><strong>Ocean Card · США</strong> — выплаты в долларах по ACH и Wire.</li>
+          <li><strong>Ruby Card · Гонконг</strong> — виртуальная карта для онлайн-покупок.</li>
+        </ul>
+        <p><a href="https://t.me/vladethlemon">Подобрать карту в Telegram</a></p>
+      </noscript>
+    </section>
+
+    <section class="shell everyday" id="benefits" aria-labelledby="benefits-title">
+      <h2 id="benefits-title">Что даёт зарубежная карта</h2>
+      <div class="everyday-grid">
+        <article class="everyday-card everyday-travel">
+          <img class="everyday-scene" src="assets/benefit-trip-studio.webp" loading="lazy" width="960" height="1200" alt="">
+          <div><h3><a class="benefit-open" data-benefit="travel" href="#cards">Платить в поездках</a></h3><p>Покупайте в магазинах за границей. Для отеля или аренды авто поможем проверить, примут ли карту для депозита.</p></div>
+          <template>
+            <p>Для покупок в поездке удобно добавить Orange в Apple Pay или Google Pay. Если в дороге понадобится физическая карта, пластик можно заказать к Orange или Gold.</p>
+            <h3>Если бронируете отель или машину</h3>
+            <p>Спросите у отеля или проката, какую карту нужно предъявить при заселении или получении ключей. Уточните, подходит ли дебетовая карта, обязателен ли пластик на имя гостя и какую сумму заблокируют под депозит.</p>
+            <a href="#cards" data-benefit-filter="travel">Посмотреть карты для поездки</a>
+          </template>
+        </article>
+        <article class="everyday-card everyday-rubles">
+          <img class="everyday-scene" src="assets/benefit-exchange.webp" loading="lazy" width="960" height="640" alt="">
+          <div><h3><a class="benefit-open" data-benefit="rubles" href="journal/topup.html">Пополнять рублями</a></h3><p>Для Orange и Gold подберём маршрут из российского банка. Курс и комиссию за пополнение через СБП уточним до перевода.</p></div>
+          <template>
+            <p>Для Orange и Gold проверим, как пополнить карту из ВТБ или Т-Банка. Скажите, из какого банка хотите отправить рубли и сколько нужно получить на карту.</p>
+            <h3>Как узнать итоговую сумму</h3>
+            <p>До отправки сверим способ перевода, курс обмена, комиссии и лимит. Так вы заранее увидите две суммы — сколько спишется в рублях и сколько поступит в валюте карты.</p>
+            <a href="journal/topup.html">Как пополнить карту из рублей</a>
+          </template>
+        </article>
+        <article class="everyday-card everyday-tap">
+          <img class="everyday-object" src="assets/benefit-terminal.webp" loading="lazy" width="320" height="320" alt="">
+          <div><h3><a class="benefit-open" data-benefit="tap" href="#wallets">Платить телефоном</a></h3><p>Добавьте карту в мобильный кошелёк и поднесите телефон к терминалу за границей.</p>
+            <div class="everyday-wallet-marks"><img src="assets/brands/applepay.svg" loading="lazy" alt="Apple Pay"><img src="assets/brands/googlepay.svg" loading="lazy" alt="Google Pay"></div>
+          </div>
+          <template>
+            <p>На iPhone можно добавить в Apple Pay карты Orange, Gold и Ocean. Для Google Pay на Android подходят Orange, Ocean и Ruby.</p>
+            <h3>До первой покупки</h3>
+            <p>Добавьте карту в кошелёк и подтвердите её способом, который предложит эмитент. В магазине за границей проверьте, принимает ли терминал бесконтактные платежи.</p>
+            <a href="#wallets">Как добавить карту в телефон</a>
+          </template>
+        </article>
+        <article class="everyday-card everyday-plastic">
+          <img class="everyday-object" src="assets/benefit-envelope.webp" loading="lazy" width="320" height="320" alt="">
+          <div><h3><a class="benefit-open" data-benefit="plastic" href="#cards">Заказать пластик</a></h3><p>Для Orange и Gold есть доставка в Россию. Стоимость — 150 USD, срок после передачи в доставку — 10–20 дней.</p></div>
+          <template>
+            <p>К виртуальной Orange или Gold можно заказать физическую карту с доставкой в Россию. Ocean и Ruby выпускаются в виртуальном формате.</p>
+            <h3>Сколько заложить до поездки</h3>
+            <p>На доставку после отправки заложите примерно 10–20 дней. Выпуск карты занимает дополнительное время. Доставка стоит 150 USD, а плату за сам выпуск уточним по тарифу выбранной карты.</p>
+            <a href="#cards" data-benefit-filter="travel">Посмотреть Orange и Gold</a>
+          </template>
+        </article>
+        <article class="everyday-card everyday-refund">
+          <img class="everyday-object" src="assets/benefit-shield.webp" loading="lazy" width="220" height="220" alt="">
+          <div><h3><a class="benefit-open" data-benefit="refund" href="info.html#terms">Получить возврат</a></h3><p>Если финансовая организация откажет в проверке личности, вернём полную стоимость сопровождения EuroCards.</p></div>
+          <template>
+            <p>Вы сами подаёте заявку и подтверждаете личность в финансовой организации. Если по итогам проверки она отказала, EuroCards вернёт полную стоимость своего сопровождения.</p>
+            <h3>Как обратиться</h3>
+            <p>Напишите в поддержку EuroCards и опишите ответ по заявке. Порядок возврата и условия по отдельным расходам на стороне финансового сервиса согласуем с вами до оплаты.</p>
+            <a href="info.html#terms">Условия сопровождения и возврата</a>
+          </template>
+        </article>
+      </div>
+      <dialog class="benefit-dialog" id="benefit-dialog" aria-labelledby="benefit-expanded-title">
+        <button type="button" class="benefit-close" aria-label="Закрыть подробности" autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <div class="benefit-sheet">
+          <div class="benefit-figure" aria-hidden="true"></div>
+          <div class="benefit-reading"><h2 id="benefit-expanded-title"></h2><div class="benefit-details"></div></div>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="shell start-guide" id="process" aria-labelledby="process-title">
+      <div class="start-intro"><h2 id="process-title">Как открыть<br>зарубежную карту</h2><p>Обычно оформление занимает несколько дней. Срок зависит от выбранной карты и проверки документов.</p></div>
+      <ol class="start-flow">
+        <li><h3>Выпустите карту</h3><p>Выберите направление и пакет. По инструкции зарегистрируйтесь на своё имя и подтвердите личность у поставщика карты.</p></li>
+        <li><h3>Пополните баланс</h3><p>Выберите подходящий способ пополнения в условиях карты. Проверьте курс, комиссию и сумму к зачислению.</p></li>
+        <li><h3>Оплатите покупку</h3><p>Введите реквизиты на сайте или добавьте карту в кошелёк телефона для бесконтактной оплаты.</p></li>
+      </ol>
+      <details class="support-plans" id="packages">
+        <summary><span>Что входит в сопровождение</span><span class="support-summary">Base и Plus</span></summary>
+        <div class="support-plan-list">
+          <article><h3>Base <span>от 9 000 ₽</span></h3><p>Инструкции по регистрации, проверке личности и пополнению через P2P. Разберём ограничения выбранного сервиса.</p><a href="#cards">Выбрать карту <span aria-hidden="true">↗</span></a></article>
+          <article><h3>Plus <span>по запросу</span></h3><p>Всё из Base, европейская eSIM для регистрации и кодов, личная поддержка и помощь с маршрутом пополнения.</p><a href="https://t.me/vladethlemon?text=Хочу%20уточнить%20условия%20пакета%20Plus" target="_blank" rel="noopener noreferrer">Уточнить условия Plus <span aria-hidden="true">↗</span></a></article>
+        </div>
+      </details>
+    </section>
+
+    <section class="shell pocket-guide" id="wallets" aria-labelledby="wallet-title">
+      <div class="pocket-copy">
+        <h2 id="wallet-title">Добавьте карту<br>в телефон</h2>
+        <fieldset class="pocket-switch"><legend class="visually-hidden">Выберите кошелёк</legend>
+          <label><input type="radio" name="mobile-wallet" value="apple" checked aria-controls="apple-instructions"><span>Apple Pay</span></label>
+          <label><input type="radio" name="mobile-wallet" value="google" aria-controls="google-instructions"><span>Google Pay</span></label>
+        </fieldset>
+        <div class="pocket-steps pocket-apple" id="apple-instructions"><h3 class="visually-hidden">Как добавить карту в Apple Pay</h3>
+          <ol><li>В Wallet на iPhone нажмите «+» и выберите дебетовую или кредитную карту.</li><li>Введите реквизиты и подтвердите добавление способом, который предложит банк.</li><li>У терминала выберите карту в Wallet, подтвердите оплату и поднесите iPhone.</li></ol>
+          <p>Для совместимых карт и стран с Apple Pay. Для Ruby на iPhone доступны покупки онлайн по реквизитам.</p>
+          <a href="https://support.apple.com/ru-ru/108398" target="_blank" rel="noopener noreferrer">Инструкция Apple <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="pocket-steps pocket-google" id="google-instructions"><h3 class="visually-hidden">Как добавить карту в Google Pay</h3>
+          <ol><li>В Google Кошельке на Android нажмите «Добавить в Кошелёк» и выберите платёжную карту.</li><li>Введите реквизиты и пройдите проверку, если её попросит банк.</li><li>Включите NFC и поднесите разблокированный телефон к терминалу.</li></ol>
+          <p>Для бесконтактной оплаты нужны совместимое устройство, карта и страна с поддержкой Google Pay.</p>
+          <a href="https://support.google.com/wallet/answer/12058983?hl=ru" target="_blank" rel="noopener noreferrer">Инструкция Google <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="pocket-visual" aria-hidden="true">
+        <img class="pocket-apple" src="assets/pocket-iphone.webp" alt="" loading="lazy" decoding="async">
+        <img class="pocket-google" src="assets/pocket-android.webp" alt="" loading="lazy" decoding="async">
+      </div>
+      <img class="pocket-currency pocket-euro" src="assets/pocket-euro.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <img class="pocket-currency pocket-dollar" src="assets/pocket-dollar.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    </section>
+
+    <section class="shell customer-reviews" id="reviews" aria-labelledby="reviews-title">
+      <div>
+        <h2 id="reviews-title">Отзывы клиентов</h2>
+        <p>Об оформлении карты и работе с EuroCards рассказывают сами клиенты. Их отзывы собраны в Telegram.</p>
+      </div>
+      <a class="review-channel" href="https://t.me/eurocards_reviews" target="_blank" rel="noopener noreferrer">
+        <span class="review-channel-icon" aria-hidden="true"><svg class="icon"><use href="#i-telegram"/></svg></span>
+        <span><strong>Читать отзывы</strong><small>@eurocards_reviews</small></span>
+        <svg class="icon review-channel-arrow" aria-hidden="true"><use href="#i-diagonal"/></svg>
+      </a>
+    </section>
+
+    <section class="shell service-section" id="services" aria-labelledby="services-title">
+      <div class="service-deck">
+        <div class="deck-heading">
+          <h2 id="services-title">От подписки <br>до брони отеля</h2>
+          <div class="service-finder" hidden>
+            <label for="merchant-search">Найти свой сервис</label>
+            <div class="service-search-field">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+              <input id="merchant-search" type="search" spellcheck="false" autocomplete="off" placeholder="Поиск по 82 сервисам" aria-controls="merchant-list">
+              <button type="button" aria-label="Очистить поиск" data-clear-search hidden><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+            </div>
+          </div>
+        </div>
+        <div class="service-navigation" hidden>
+          <div class="service-tabs" role="group" aria-label="Категории сервисов">
+            <button type="button" id="tab-popular" data-group="popular" data-note="Подбор зависит от страны аккаунта, валюты и требований продавца. Нажмите на сервис, чтобы уточнить совместимость карты в Telegram." aria-controls="merchant-list" aria-pressed="true">Популярные</button>
+            <button type="button" id="tab-digital" data-group="digital" data-note="Доступность подписки или API зависит от страны использования и требований сервиса к карте." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">ИИ и нейросети</button>
+            <button type="button" id="tab-work" data-group="work" data-note="Проверьте, где оформлена подписка и в какой валюте будет следующий платёж." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Работа и облако</button>
+            <button type="button" id="tab-travel" data-group="travel" data-note="При бронировании уточните условия депозита и нужен ли при заселении или аренде физический пластик на ваше имя." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Поездки</button>
+            <button type="button" id="tab-entertainment" data-group="entertainment" data-note="У прямой подписки и покупки через магазин приложений могут отличаться способы оплаты. Проверьте регион аккаунта." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Музыка и кино</button>
+            <button type="button" id="tab-design" data-group="design" data-note="Для проверки тарифа уточните, где вы покупаете лицензию — на сайте издателя или в магазине приложений." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Дизайн и фото</button>
+            <button type="button" id="tab-games" data-group="games" data-note="У игр и цифровых магазинов действуют региональные правила. Для подбора назовите платформу и страну аккаунта." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Игры</button>
+            <button type="button" id="tab-shops" data-group="shops" data-note="У одного бренда могут быть разные условия оплаты и доставки по странам. Для проверки пришлите адрес конкретного магазина." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Магазины</button>
+            <button type="button" id="tab-china" data-group="china" data-note="Для Alipay и WeChat Pay уточняем привязку конкретной карты. В китайских приложениях доступный способ оплаты зависит от аккаунта и продавца." aria-controls="merchant-list" aria-pressed="false" tabindex="-1">Китай</button>
+          </div>
+          <div class="deck-arrows" aria-label="Перелистывание категорий">
+            <button type="button" data-service-step="-1" aria-label="Предыдущая категория"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+            <button type="button" data-service-step="1" aria-label="Следующая категория"><svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <p class="visually-hidden" id="service-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div class="service-category">
+          <div id="merchant-list" class="merchant-grid" role="list" aria-label="Сервисы и магазины">
+            <div role="listitem" data-group="digital" data-search="OpenAI чатгпт чат джипити гпт" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20ChatGPT%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату ChatGPT в Telegram"><img class="merchant-logo" src="assets/services/chatgpt.webp" width="52" height="52" loading="lazy" alt=""><span><strong>ChatGPT</strong><small>Подписки на ИИ</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="айклауд icloud apple облако" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20iCloud%2B%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату iCloud+ в Telegram"><img class="merchant-logo" src="assets/services/icloud.webp" width="52" height="52" loading="lazy" alt=""><span><strong>iCloud+</strong><small>Хранилище Apple</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="букинг bookingcom" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Booking.com%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Booking.com в Telegram"><img class="merchant-logo" src="assets/services/booking.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Booking.com</strong><small>Отели и апартаменты</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="спотифай" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Spotify%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Spotify в Telegram"><img class="merchant-logo" src="assets/services/spotify.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Spotify</strong><small>Музыка и подкасты</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="фигма" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Figma%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Figma в Telegram"><img class="merchant-logo" src="assets/services/figma.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Figma</strong><small>Дизайн интерфейсов</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="убер" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Uber%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Uber в Telegram"><img class="merchant-logo" src="assets/services/uber.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Uber</strong><small>Поездки на такси</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="Anthropic клод" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Claude%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Claude в Telegram"><img class="merchant-logo" src="assets/services/claude.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Claude</strong><small>ИИ для работы</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="нетфликс" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Netflix%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Netflix в Telegram"><img class="merchant-logo" src="assets/services/netflix.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Netflix</strong><small>Фильмы и сериалы</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="стим valve" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Steam%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Steam в Telegram"><img class="merchant-logo" src="assets/services/steam.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Steam</strong><small>Игровой магазин</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="зара" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Zara%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Zara в Telegram"><img class="merchant-logo" src="assets/services/zara.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Zara</strong><small>Одежда и аксессуары</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="эйрбиэнби" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Airbnb%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Airbnb в Telegram"><img class="merchant-logo" src="assets/services/airbnb.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Airbnb</strong><small>Аренда жилья</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="канва" data-popular>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Canva%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Canva в Telegram"><img class="merchant-logo" src="assets/services/canva.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Canva</strong><small>Дизайн и шаблоны</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="гугл джемини" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Gemini%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Gemini в Telegram"><img class="merchant-logo" src="assets/services/gemini.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Gemini</strong><small>Ассистент Google</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="перплексити" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Perplexity%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Perplexity в Telegram"><img class="merchant-logo" src="assets/services/perplexity.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Perplexity</strong><small>Поиск с ИИ</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="майкрософт копилот" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Microsoft%20Copilot%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Microsoft Copilot в Telegram"><img class="merchant-logo" src="assets/services/copilot.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Microsoft Copilot</strong><small>Ассистент Microsoft</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="дипсик" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20DeepSeek%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату DeepSeek в Telegram"><img class="merchant-logo" src="assets/services/deepseek.webp" width="52" height="52" loading="lazy" alt=""><span><strong>DeepSeek</strong><small>Доступ к API</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="поэ" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Poe%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Poe в Telegram"><img class="merchant-logo" src="assets/services/poe.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Poe</strong><small>ИИ-ассистенты</small></span></a>
+            </div>
+            <div role="listitem" data-group="digital" data-search="суно" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Suno%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Suno в Telegram"><img class="merchant-logo" src="assets/services/suno.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Suno</strong><small>Генерация музыки</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="ноушн" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Notion%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Notion в Telegram"><img class="merchant-logo" src="assets/services/notion.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Notion</strong><small>Рабочее пространство</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="дропбокс" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Dropbox%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Dropbox в Telegram"><img class="merchant-logo" src="assets/services/dropbox.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Dropbox</strong><small>Облачное хранилище</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="гугл диск google one" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Google%20Drive%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Google Drive в Telegram"><img class="merchant-logo" src="assets/services/drive.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Google Drive</strong><small>Облачное хранилище</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="зум" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Zoom%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Zoom в Telegram"><img class="merchant-logo" src="assets/services/zoom.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Zoom</strong><small>Видеовстречи</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="трелло" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Trello%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Trello в Telegram"><img class="merchant-logo" src="assets/services/trello.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Trello</strong><small>Управление задачами</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="слак слэк" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Slack%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Slack в Telegram"><img class="merchant-logo" src="assets/services/slack.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Slack</strong><small>Командные чаты</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="миро" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Miro%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Miro в Telegram"><img class="merchant-logo" src="assets/services/miro.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Miro</strong><small>Онлайн-доски</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="тудуист" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Todoist%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Todoist в Telegram"><img class="merchant-logo" src="assets/services/todoist.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Todoist</strong><small>Списки задач</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="гитхаб" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20GitHub%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату GitHub в Telegram"><img class="merchant-logo" src="assets/services/github.webp" width="52" height="52" loading="lazy" alt=""><span><strong>GitHub</strong><small>Разработка</small></span></a>
+            </div>
+            <div role="listitem" data-group="work" data-search="майкрософт уандрайв" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20OneDrive%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату OneDrive в Telegram"><img class="merchant-logo" src="assets/services/onedrive.webp" width="52" height="52" loading="lazy" alt=""><span><strong>OneDrive</strong><small>Хранилище Microsoft</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="трип tripcom" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Trip.com%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Trip.com в Telegram"><img class="merchant-logo" src="assets/services/trip.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Trip.com</strong><small>Авиабилеты и отели</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="болт" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Bolt%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Bolt в Telegram"><img class="merchant-logo" src="assets/services/bolt.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Bolt</strong><small>Такси и транспорт</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="экспедиа" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Expedia%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Expedia в Telegram"><img class="merchant-logo" src="assets/services/expedia.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Expedia</strong><small>Поиск путешествий</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="скайсканер" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Skyscanner%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Skyscanner в Telegram"><img class="merchant-logo" src="assets/services/skyscanner.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Skyscanner</strong><small>Поиск авиабилетов</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="фликсбус" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20FlixBus%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату FlixBus в Telegram"><img class="merchant-logo" src="assets/services/flixbus.webp" width="52" height="52" loading="lazy" alt=""><span><strong>FlixBus</strong><small>Междугородные автобусы</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="омио" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Omio%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Omio в Telegram"><img class="merchant-logo" src="assets/services/omio.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Omio</strong><small>Билеты на транспорт</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="клук" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Klook%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Klook в Telegram"><img class="merchant-logo" src="assets/services/klook.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Klook</strong><small>Билеты и развлечения</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="гет ёр гайд" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20GetYourGuide%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату GetYourGuide в Telegram"><img class="merchant-logo" src="assets/services/getyourguide.webp" width="52" height="52" loading="lazy" alt=""><span><strong>GetYourGuide</strong><small>Экскурсии и билеты</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="трейнлайн" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Trainline%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Trainline в Telegram"><img class="merchant-logo" src="assets/services/trainline.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Trainline</strong><small>Поезда и автобусы</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="агода" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Agoda%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Agoda в Telegram"><img class="merchant-logo" src="assets/services/agoda.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Agoda</strong><small>Отели и жильё</small></span></a>
+            </div>
+            <div role="listitem" data-group="travel" data-search="хотелс" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Hotels.com%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Hotels.com в Telegram"><img class="merchant-logo" src="assets/services/hotels.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Hotels.com</strong><small>Бронирование отелей</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="эпл мьюзик" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Apple%20Music%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Apple Music в Telegram"><img class="merchant-logo" src="assets/services/applemusic.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Apple Music</strong><small>Музыка по подписке</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="ютуб мьюзик" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20YouTube%20Music%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату YouTube Music в Telegram"><img class="merchant-logo" src="assets/services/youtubemusic.webp" width="52" height="52" loading="lazy" alt=""><span><strong>YouTube Music</strong><small>Музыка и клипы</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="amazon прайм видео" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Prime%20Video%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Prime Video в Telegram"><img class="merchant-logo" src="assets/services/primevideo.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Prime Video</strong><small>Кино по подписке</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="дисней" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Disney%2B%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Disney+ в Telegram"><img class="merchant-logo" src="assets/services/disney.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Disney+</strong><small>Фильмы и сериалы</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="твич" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Twitch%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Twitch в Telegram"><img class="merchant-logo" src="assets/services/twitch.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Twitch</strong><small>Стримы</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="дизер" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Deezer%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Deezer в Telegram"><img class="merchant-logo" src="assets/services/deezer.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Deezer</strong><small>Музыка и подкасты</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="саундклауд" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20SoundCloud%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату SoundCloud в Telegram"><img class="merchant-logo" src="assets/services/soundcloud.webp" width="52" height="52" loading="lazy" alt=""><span><strong>SoundCloud</strong><small>Музыка и аудио</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="эпл тв" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Apple%20TV%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Apple TV в Telegram"><img class="merchant-logo" src="assets/services/appletv.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Apple TV</strong><small>Фильмы и сериалы</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="кранчиролл" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Crunchyroll%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Crunchyroll в Telegram"><img class="merchant-logo" src="assets/services/crunchyroll.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Crunchyroll</strong><small>Аниме</small></span></a>
+            </div>
+            <div role="listitem" data-group="entertainment" data-search="ютуб премиум" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20YouTube%20Premium%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату YouTube Premium в Telegram"><img class="merchant-logo" src="assets/services/youtube.webp" width="52" height="52" loading="lazy" alt=""><span><strong>YouTube Premium</strong><small>Видео по подписке</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="адоб экспресс" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Adobe%20Express%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Adobe Express в Telegram"><img class="merchant-logo" src="assets/services/express.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Adobe Express</strong><small>Графика и публикации</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="пиксарт" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Picsart%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Picsart в Telegram"><img class="merchant-logo" src="assets/services/picsart.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Picsart</strong><small>Фото и дизайн</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="капкат" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20CapCut%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату CapCut в Telegram"><img class="merchant-logo" src="assets/services/capcut.webp" width="52" height="52" loading="lazy" alt=""><span><strong>CapCut</strong><small>Видеомонтаж</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="прокриэйт procreate" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Procreate%20Pocket%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Procreate Pocket в Telegram"><img class="merchant-logo" src="assets/services/procreate.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Procreate Pocket</strong><small>Рисование на iPhone</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="фоторум" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Photoroom%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Photoroom в Telegram"><img class="merchant-logo" src="assets/services/photoroom.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Photoroom</strong><small>Предметное фото</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="лайтрум адоб" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Adobe%20Lightroom%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Adobe Lightroom в Telegram"><img class="merchant-logo" src="assets/services/lightroom.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Adobe Lightroom</strong><small>Обработка фото</small></span></a>
+            </div>
+            <div role="listitem" data-group="design" data-search="вско" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20VSCO%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату VSCO в Telegram"><img class="merchant-logo" src="assets/services/vsco.webp" width="52" height="52" loading="lazy" alt=""><span><strong>VSCO</strong><small>Фотография и фильтры</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="плейстейшен psn sony" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20PlayStation%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату PlayStation в Telegram"><img class="merchant-logo" src="assets/services/playstation.webp" width="52" height="52" loading="lazy" alt=""><span><strong>PlayStation</strong><small>Игры и подписки</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="иксбокс майкрософт" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Xbox%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Xbox в Telegram"><img class="merchant-logo" src="assets/services/xbox.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Xbox</strong><small>Игры и Game Pass</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="нинтендо" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Nintendo%20Switch%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Nintendo Switch в Telegram"><img class="merchant-logo" src="assets/services/nintendo.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Nintendo Switch</strong><small>Игры и подписки</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="роблокс робуксы" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Roblox%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Roblox в Telegram"><img class="merchant-logo" src="assets/services/roblox.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Roblox</strong><small>Игры и Robux</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="майнкрафт" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Minecraft%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Minecraft в Telegram"><img class="merchant-logo" src="assets/services/minecraft.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Minecraft</strong><small>Игры и Realms</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="дискорд нитро" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Discord%20Nitro%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Discord Nitro в Telegram"><img class="merchant-logo" src="assets/services/discord.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Discord Nitro</strong><small>Подписки для общения</small></span></a>
+            </div>
+            <div role="listitem" data-group="games" data-search="футбол fifa еа" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20EA%20Sports%20FC%20Mobile%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату EA Sports FC Mobile в Telegram"><img class="merchant-logo" src="assets/services/fc.webp" width="52" height="52" loading="lazy" alt=""><span><strong>EA Sports FC Mobile</strong><small>Игровые покупки</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="юникло" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20UNIQLO%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату UNIQLO в Telegram"><img class="merchant-logo" src="assets/services/uniqlo.webp" width="52" height="52" loading="lazy" alt=""><span><strong>UNIQLO</strong><small>Одежда</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="икеа икея" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20IKEA%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату IKEA в Telegram"><img class="merchant-logo" src="assets/services/ikea.webp" width="52" height="52" loading="lazy" alt=""><span><strong>IKEA</strong><small>Товары для дома</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="найк" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Nike%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Nike в Telegram"><img class="merchant-logo" src="assets/services/nike.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Nike</strong><small>Спорт и обувь</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="адидас" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20adidas%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату adidas в Telegram"><img class="merchant-logo" src="assets/services/adidas.webp" width="52" height="52" loading="lazy" alt=""><span><strong>adidas</strong><small>Спортивные товары</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="асос" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20ASOS%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату ASOS в Telegram"><img class="merchant-logo" src="assets/services/asos.webp" width="52" height="52" loading="lazy" alt=""><span><strong>ASOS</strong><small>Одежда и обувь</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="ибей" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20eBay%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату eBay в Telegram"><img class="merchant-logo" src="assets/services/ebay.webp" width="52" height="52" loading="lazy" alt=""><span><strong>eBay</strong><small>Маркетплейс</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="этси" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Etsy%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Etsy в Telegram"><img class="merchant-logo" src="assets/services/etsy.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Etsy</strong><small>Товары мастеров</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="амазон" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Amazon%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Amazon в Telegram"><img class="merchant-logo" src="assets/services/amazon.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Amazon</strong><small>Маркетплейс</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="алиэкспресс" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20AliExpress%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату AliExpress в Telegram"><img class="merchant-logo" src="assets/services/aliexpress.webp" width="52" height="52" loading="lazy" alt=""><span><strong>AliExpress</strong><small>Маркетплейс</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="эйч энд эм hm" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20H%26M%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату H&amp;M в Telegram"><img class="merchant-logo" src="assets/services/hm.webp" width="52" height="52" loading="lazy" alt=""><span><strong>H&amp;M</strong><small>Одежда</small></span></a>
+            </div>
+            <div role="listitem" data-group="shops" data-search="фарфетч" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20FARFETCH%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату FARFETCH в Telegram"><img class="merchant-logo" src="assets/services/farfetch.webp" width="52" height="52" loading="lazy" alt=""><span><strong>FARFETCH</strong><small>Дизайнерская одежда</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="алипей алипэй" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Alipay%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Alipay в Telegram"><img class="merchant-logo" src="assets/services/alipay.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Alipay</strong><small>Кошелёк в Китае</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="вичат вичет weixin" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20WeChat%20Pay%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату WeChat Pay в Telegram"><img class="merchant-logo" src="assets/services/wechat.webp" width="52" height="52" loading="lazy" alt=""><span><strong>WeChat Pay</strong><small>Оплата через WeChat</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="таобао" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Taobao%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Taobao в Telegram"><img class="merchant-logo" src="assets/services/taobao.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Taobao</strong><small>Маркетплейс</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="джей ди jingdong" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20JD.com%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату JD.com в Telegram"><img class="merchant-logo" src="assets/services/jd.webp" width="52" height="52" loading="lazy" alt=""><span><strong>JD.com</strong><small>Маркетплейс</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="диди" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20DiDi%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату DiDi в Telegram"><img class="merchant-logo" src="assets/services/didi.webp" width="52" height="52" loading="lazy" alt=""><span><strong>DiDi</strong><small>Поездки на такси</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="тимолл тмолл" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Tmall%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Tmall в Telegram"><img class="merchant-logo" src="assets/services/tmall.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Tmall</strong><small>Магазины брендов</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="алипей гонконг" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20AlipayHK%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату AlipayHK в Telegram"><img class="merchant-logo" src="assets/services/alipayhk.webp" width="52" height="52" loading="lazy" alt=""><span><strong>AlipayHK</strong><small>Кошелёк Гонконга</small></span></a>
+            </div>
+            <div role="listitem" data-group="china" data-search="мэйтуань" hidden>
+              <a class="merchant" href="https://t.me/vladethlemon?text=Подойдёт%20ли%20карта%20для%20Meituan%3F" target="_blank" rel="noopener noreferrer" aria-label="Уточнить оплату Meituan в Telegram"><img class="merchant-logo" src="assets/services/meituan.webp" width="52" height="52" loading="lazy" alt=""><span><strong>Meituan</strong><small>Заказы и доставка</small></span></a>
+            </div>
+          </div>
+          <div class="service-empty" hidden><h3>Сервис не найден</h3><p>Проверьте название или спросите о нём в поддержке.</p><a href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer">Спросить в Telegram ↗</a></div>
+          <p class="service-note" id="service-note">Подбор зависит от страны аккаунта, валюты и требований продавца. Нажмите на сервис, чтобы уточнить совместимость карты в Telegram.</p>
+        </div>
+        <noscript><p class="service-note">Поддержка поможет подобрать карту и для других сервисов.</p></noscript>
+      </div>
+    </section>
+    <section class="shell journal-section" id="journal" aria-labelledby="journal-title">
+      <div class="journal-heading"><h2 id="journal-title">Блог EuroCards</h2><a class="section-link" href="https://t.me/eurocards_ru" target="_blank" rel="noopener noreferrer">Наш Telegram <svg class="icon" aria-hidden="true"><use href="#i-diagonal"/></svg></a></div>
+      <div class="journal-grid">
+        <a class="journal-story" href="journal/subscriptions.html"><img src="assets/blog-subscriptions.webp" width="1280" height="854" alt="" loading="lazy" decoding="async"><span>Подписки</span><h3>Как выбрать карту для подписки и её продления</h3></a>
+        <a class="journal-story" href="journal/transfers.html"><img src="assets/blog-transfers.webp" width="1280" height="854" alt="" loading="lazy" decoding="async"><span>Переводы</span><h3>Какие реквизиты дать зарубежному заказчику</h3></a>
+        <a class="journal-story" href="journal/topup.html"><img src="assets/blog-topup.webp" width="1280" height="854" alt="" loading="lazy" decoding="async"><span>Пополнение</span><h3>Сколько евро придёт на счёт за 10 000 рублей?</h3></a>
+      </div>
+    </section>
+
+    <section class="shell faq-section" id="questions" aria-labelledby="faq-title">
+      <div class="faq-intro"><h2 id="faq-title">Частые вопросы</h2><a class="review-link" href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer">Задать свой вопрос<svg class="icon" aria-hidden="true"><use href="#i-diagonal"/></svg></a></div>
+      <div class="faq-list">
+        <details name="faqs"><summary>За что именно я плачу?</summary><p>За подбор зарубежного платёжного решения и сопровождение по выбранному пакету. Работаем по полной предоплате. Заранее согласуем стоимость услуги и обсудим расходы на обслуживание карты, пополнение и доставку, если она нужна.</p></details>
+        <details name="faqs"><summary>Кто открывает счёт и у кого будет доступ?</summary><p>Вы самостоятельно регистрируетесь в сервисе и подтверждаете свою личность. Решение об открытии принимает финансовая организация. Пароли, коды подтверждения и доступ к деньгам остаются у вас.</p></details>
+        <details name="faqs"><summary>Можно ли пополнять карту из России?</summary><p>Для направлений Великобритании и Болгарии есть варианты пополнения из российских банков. Перед выбором уточним доступность маршрута, комиссию, курс и лимиты для вашей операции.</p></details>
+        <details name="faqs"><summary>Можно ли заказать физическую карту?</summary><p>Для Великобритании и Болгарии возможна доставка в Россию. После выпуска и передачи в доставку ориентир — 10–20 дней. Доставка стоит 150 USD. Для США и Гонконга предусмотрена виртуальная карта.</p></details>
+        <details name="faqs"><summary>Что будет, если мне откажут в верификации?</summary><p>При отказе финансовой организации в верификации EuroCards возвращает полную стоимость услуги. Порядок возврата и возможные расходы сторонних сервисов уточним до оплаты.</p></details>
+      </div>
+    </section>
+
+    <section class="shell contact-section" aria-labelledby="contact-title"><div class="contact-panel">
+      <div><h2 id="contact-title">Обсудим вашу задачу?</h2><p>Напишите, для чего вам карта. Поможем выбрать направление.</p></div>
+      <a class="button light-button" href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-telegram"/></svg>Написать в Telegram</a>
+    </div></section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-directory">
+      <div class="footer-brand"><a class="wordmark" href="#top" aria-label="EuroCards, в начало">EURO<span>CARDS</span></a><p>Подбор зарубежных карт <br>и сопровождение при оформлении.</p></div>
+      <nav aria-label="Карты и оплата"><h3>Карты и оплата</h3><a href="#cards">Каталог карт</a><a href="#process">Оформление</a><a href="#wallets">Оплата телефоном</a><a href="#services">Сервисы</a></nav>
+      <nav aria-label="Информация о EuroCards"><h3>EuroCards</h3><a href="info.html#about">О нас</a><a href="#journal">Блог</a><a href="https://t.me/eurocards_reviews" target="_blank" rel="noopener noreferrer">Отзывы клиентов</a><a href="info.html#contacts">Контакты и реквизиты</a></nav>
+      <nav aria-label="Обратная связь"><h3>Связаться</h3><a href="https://t.me/vladethlemon" target="_blank" rel="noopener noreferrer">Поддержка в Telegram <svg class="icon" aria-hidden="true"><use href="#i-diagonal"/></svg></a><a href="https://t.me/eurocards_ru" target="_blank" rel="noopener noreferrer">Канал EuroCards <svg class="icon" aria-hidden="true"><use href="#i-diagonal"/></svg></a></nav>
+      <div class="footer-legal"><span>© 2026 EuroCards</span><a href="info.html#privacy">Политика конфиденциальности</a><a href="info.html#terms">Условия использования</a><a href="#top">Наверх ↑</a></div>
+    </div>
+  </footer>
+  <dialog id="product-dialog"></dialog>
+  <button type="button" class="finder-launch" id="finder-launch" aria-haspopup="dialog" aria-controls="finder-dialog" hidden>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+    Подобрать карту
+  </button>
+  <dialog id="finder-dialog" aria-labelledby="finder-title"></dialog>
+</body>
+</html>

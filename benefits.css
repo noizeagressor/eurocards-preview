@@ -1,0 +1,491 @@
+.everyday, .start-guide, .pocket-guide {
+  scroll-margin-top: 100px;
+}
+.everyday, .start-guide {
+  margin-block: clamp(68px, 7.8vw, 120px);
+}
+#cards + .everyday { margin-top: clamp(6px, 1.6vw, 24px); }
+.everyday h2, .start-intro h2, .pocket-copy h2 {
+  font-size: clamp(37px, 4.25vw, 64px);
+  line-height: 1.035;
+  letter-spacing: -.065em;
+  font-weight: 585;
+  text-wrap: balance;
+}
+.everyday-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.48fr) repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "travel rubles rubles"
+    "travel tap plastic"
+    "travel refund refund";
+  gap: 14px;
+  margin-top: clamp(25px, 3.3vw, 44px);
+}
+.everyday-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(22px, 2.1vw, 30px);
+  border-radius: 25px;
+  color: #191c25;
+}
+.everyday-card h3 {
+  font-size: clamp(23px, 2vw, 29px);
+  line-height: 1.08;
+  letter-spacing: -.05em;
+  font-weight: 600;
+}
+.everyday-card p {
+  max-width: 39ch;
+  margin: 8px 0 0;
+  color: #424552;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.46;
+  letter-spacing: -.016em;
+}
+.everyday-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  pointer-events: none;
+}
+.everyday-travel {
+  grid-area: travel;
+  justify-content: flex-end;
+  background: #f6baa0;
+}
+.everyday-travel > img { object-position: 54% 45%; }
+.everyday-travel h3 {
+  font-size: clamp(32px, 2.95vw, 45px);
+  line-height: 1.03;
+}
+.everyday-travel p { max-width: 37ch; color: #4e362e; }
+.everyday-rubles {
+  grid-area: rubles;
+  justify-content: center;
+  min-height: 187px;
+  background: #d4c7f6;
+}
+.everyday-rubles > img {
+  left: auto;
+  width: 61%;
+  object-position: right 55%;
+  mask-image: linear-gradient(90deg, transparent, #000 28%);
+}
+.everyday-rubles > div { width: 56%; }
+.everyday-tap, .everyday-plastic {
+  justify-content: flex-end;
+  min-height: 239px;
+  padding-top: 102px;
+}
+.everyday-tap { grid-area: tap; background: #e9eef2; }
+.everyday-plastic { grid-area: plastic; background: #f4eade; }
+.everyday-object { display: block; pointer-events: none; object-fit: contain; }
+.everyday-tap > .everyday-object, .everyday-plastic > .everyday-object {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  width: 115px;
+  height: 99px;
+}
+.everyday-wallet-marks { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.everyday-wallet-marks img { display: block; width: 42px; height: 17px; object-fit: contain; }
+.everyday-refund {
+  grid-area: refund;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  padding-block: 17px;
+  background: #e3efe6;
+}
+.everyday-refund .everyday-object { width: 69px; height: 69px; flex: none; }
+.everyday-refund h3 { font-size: clamp(22px, 1.7vw, 25px); }
+.everyday-refund p { max-width: 57ch; margin-top: 5px; }
+@media (min-width: 541px) and (max-width: 860px) {
+  .everyday-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "travel rubles" "travel tap" "plastic refund";
+    gap: 12px;
+  }
+  .everyday-travel > img { object-position: 55% center; }
+  .everyday-rubles { min-height: 218px; justify-content: flex-end; padding-top: 100px; }
+  .everyday-rubles > div { width: 100%; }
+  .everyday-rubles > img {
+    inset: 0 0 auto auto;
+    width: 190px;
+    height: 110px;
+    mask-image: linear-gradient(90deg, transparent, #000 35%), linear-gradient(0deg, transparent, #000 20%);
+    mask-composite: intersect;
+  }
+  .everyday-tap, .everyday-plastic { padding-top: 87px; min-height: 184px; }
+  .everyday-tap > .everyday-object, .everyday-plastic > .everyday-object { top: 1px; width: 94px; height: 84px; }
+  .everyday-refund { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 10px; }
+  .everyday-refund .everyday-object { margin-left: auto; }
+}
+@media (max-width: 540px) {
+  .everyday-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "travel" "rubles" "tap" "plastic" "refund";
+    gap: 11px;
+  }
+  .everyday-card { border-radius: 20px; padding: 20px; }
+  .everyday-card h3 { font-size: 23px; }
+  .everyday-card p { font-size: 14px; line-height: 1.43; }
+  .everyday-travel { min-height: clamp(365px, 105vw, 460px); }
+  .everyday-travel h3 { font-size: 34px; }
+  .everyday-rubles { min-height: 179px; }
+  .everyday-rubles > div { width: 66%; }
+  .everyday-rubles > img {
+    width: 52%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    mask-image: linear-gradient(90deg, transparent, #000 30%), linear-gradient(0deg, transparent, #000 16% 85%, transparent);
+    mask-composite: intersect;
+  }
+  .everyday-tap, .everyday-plastic, .everyday-refund {
+    flex-direction: row-reverse;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 130px;
+  }
+  .everyday-tap > .everyday-object, .everyday-plastic > .everyday-object, .everyday-refund > .everyday-object {
+    position: static;
+    width: 25%;
+    height: auto;
+    flex: none;
+  }
+  .everyday-wallet-marks { margin-top: 9px; }
+}
+@media (max-width: 360px) {
+  .everyday-card { padding: 17px; }
+  .everyday-card h3 { font-size: 22px; }
+  .everyday-travel { min-height: 428px; }
+  .everyday-travel h3 { font-size: 30px; }
+  .everyday-rubles { min-height: 191px; }
+  .everyday-rubles > div { width: 69%; }
+}
+
+.benefit-open { color: inherit; text-decoration: none; }
+.benefit-open::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+}
+.benefit-open::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 31px;
+  height: 31px;
+  border: 1px solid rgb(34 36 51 / 11%);
+  border-radius: 50%;
+  background:
+    linear-gradient(#303341, #303341) center / 11px 1.5px no-repeat,
+    linear-gradient(#303341, #303341) center / 1.5px 11px no-repeat,
+    rgb(255 255 255 / 86%);
+  pointer-events: none;
+}
+.everyday-card:has(.benefit-open:focus-visible) { outline: 3px solid #394bf2; outline-offset: 3px; }
+.benefit-open:focus-visible { outline: none; }
+.everyday-refund { padding-right: 55px; }
+@media (min-width: 541px) {
+  :is(.everyday-tap, .everyday-plastic) .benefit-open::after { right: auto; left: 14px; }
+}
+@media (max-width: 540px) {
+  .everyday-refund { padding-right: 20px; }
+  .benefit-open::after { top: 10px; right: 10px; width: 27px; height: 27px; }
+}
+@media (hover: hover) {
+  .benefit-open:hover::after { background-color: #fff; border-color: rgb(34 36 51 / 27%); }
+}
+
+html:has(.benefit-dialog[open]) { overflow: hidden; }
+.benefit-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(800px, calc(100% - 40px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 27px;
+  background: var(--benefit-paper, #f6baa0);
+  color: #191c25;
+  box-shadow: 0 20px 70px #17243e40;
+}
+.benefit-dialog::backdrop { background: rgb(19 25 41 / 45%); }
+.benefit-sheet {
+  display: grid;
+  position: relative;
+  grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr);
+  min-height: 390px;
+}
+.benefit-figure {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.benefit-figure img { display: block; width: min(76%, 204px); height: auto; }
+.benefit-dialog:is([data-theme="travel"], [data-theme="rubles"]) .benefit-figure img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mask-image: linear-gradient(90deg, black 68%, transparent 100%);
+}
+.benefit-dialog[data-theme="travel"] .benefit-figure img { object-position: 52% 40%; }
+.benefit-dialog[data-theme="rubles"] .benefit-figure img { object-position: 82% center; }
+.benefit-reading {
+  align-self: center;
+  padding: 45px clamp(24px, 3.5vw, 48px) 32px clamp(16px, 2.1vw, 30px);
+}
+.benefit-reading h2 {
+  font-size: clamp(32px, 3vw, 44px);
+  line-height: 1.04;
+  letter-spacing: -.06em;
+  text-wrap: initial;
+}
+.benefit-details p { margin: 13px 0 0; color: #353844; font-size: 15px; line-height: 1.52; }
+.benefit-details h3 { margin: 23px 0 -7px; font-size: 17px; line-height: 1.25; letter-spacing: -.035em; }
+.benefit-details a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  margin-top: 15px;
+  font-weight: 590;
+  font-size: 14px;
+  color: #202437;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.benefit-details a::after { content: "→"; text-decoration: none; }
+.benefit-close {
+  position: sticky;
+  z-index: 1;
+  top: 12px;
+  margin: 12px 12px -56px auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgb(34 36 51 / 12%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 89%);
+}
+.benefit-close .icon { width: 18px; height: 18px; }
+@media (max-width: 610px) {
+  .benefit-dialog { width: min(420px, calc(100% - 24px)); border-radius: 22px; }
+  .benefit-sheet { display: block; min-height: 0; }
+  .benefit-figure { height: clamp(109px, 20dvh, 175px); }
+  .benefit-figure img { position: absolute; inset: 0; margin: auto; width: 54%; height: 86%; object-fit: contain; }
+  .benefit-dialog:is([data-theme="travel"], [data-theme="rubles"]) .benefit-figure img {
+    object-position: 50% 48%;
+    mask-image: linear-gradient(180deg, black 66%, transparent 100%);
+  }
+  .benefit-dialog[data-theme="travel"] .benefit-figure img {
+    inset: -4% auto auto 50%;
+    width: auto;
+    height: 143%;
+    margin: 0;
+    transform: translateX(-50%);
+    mask-image: linear-gradient(90deg, transparent, black 25% 78%, transparent), linear-gradient(180deg, black 55%, transparent 72%);
+    mask-composite: intersect;
+  }
+  .benefit-reading { padding: 6px 22px 19px; }
+  .benefit-reading h2 { font-size: 31px; }
+  .benefit-details p { margin-top: 11px; font-size: 14px; }
+  .benefit-details h3 { margin-top: 17px; }
+  .benefit-details a { margin-top: 9px; }
+  .benefit-close { top: 9px; margin: 9px 9px -53px auto; }
+}
+
+.start-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.start-intro > p {
+  max-width: 320px;
+  margin: 0 6% 4px 0;
+  color: #555b68;
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -.02em;
+}
+.start-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 4vw, 64px);
+  margin: clamp(30px, 3.4vw, 50px) 0 34px;
+  padding: 0;
+  list-style: none;
+  counter-reset: start-step;
+}
+.start-flow li { position: relative; counter-increment: start-step; }
+.start-flow li::before {
+  content: counter(start-step, decimal-leading-zero);
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  min-width: 52px;
+  height: 38px;
+  margin-bottom: 21px;
+  border: 1px solid #bfc3f4;
+  border-radius: 999px;
+  background: #f0f0ff;
+  color: #353cb1;
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.04em;
+}
+.start-flow li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 19px;
+  left: 64px;
+  right: calc(-1 * clamp(22px, 4vw, 64px) + 12px);
+  border-top: 1px solid #d4d5e3;
+}
+.start-flow h3 { font-size: clamp(23px, 2.35vw, 34px); line-height: 1.1; font-weight: 590; letter-spacing: -.055em; }
+.start-flow p { max-width: 41ch; margin-top: 10px; font-size: 15px; line-height: 1.56; letter-spacing: -.017em; color: #535965; }
+.support-plans {
+  border-block: 1px solid #d9dbe3;
+}
+.support-plans > summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 2px;
+  font-weight: 590;
+  letter-spacing: -.025em;
+  cursor: pointer;
+  list-style: none;
+}
+.support-plans summary::-webkit-details-marker { display: none; }
+.support-summary { margin-left: auto; color: #595f6e; font-size: 14px; font-weight: 470; white-space: nowrap; }
+.support-plans > summary::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px 4px 2px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+.support-plans[open] > summary::after { transform: rotate(225deg); margin-block: 4px 0; }
+.support-plan-list { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 4px 0 22px; }
+.support-plan-list article { background: #f2f2f6; padding: 23px; border-radius: 15px; }
+.support-plan-list h3 { margin-bottom: 8px; font-size: 21px; font-weight: 630; letter-spacing: -.04em; }
+.support-plan-list h3 span { margin-left: 5px; color: #55596e; font-size: 15px; font-weight: 470; letter-spacing: -.02em; }
+.support-plan-list p { color: #4f5461; font-size: 15px; line-height: 1.5; }
+.support-plan-list a, .pocket-steps > a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; color: #363fba; font-size: 14px; font-weight: 585; }
+.support-plan-list a { margin-top: 7px; }
+.support-plan-list a:hover, .pocket-steps a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.pocket-guide {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: clamp(143px, 12vw, 172px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  min-height: clamp(430px, 36vw, 520px);
+  margin-block: clamp(72px, 7.8vw, 116px);
+  border-radius: 30px;
+  background: #e9e6f5 url("assets/pocket-studio.webp") center / cover no-repeat;
+}
+.pocket-copy { align-self: center; min-width: 0; padding: clamp(49px, 4.7vw, 70px) clamp(28px, 4.2vw, 62px) clamp(28px, 3.2vw, 46px); }
+.pocket-copy h2 { font-size: clamp(36px, 3.6vw, 54px); }
+.pocket-switch {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 3px;
+  margin: 22px 0;
+  padding: 3px;
+  border: 1px solid #cfd1e0;
+  border-radius: 999px;
+  background: #e3e3f0;
+}
+.pocket-switch label { position: relative; cursor: pointer; }
+.pocket-switch input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.pocket-switch span { display: grid; place-items: center; min-height: 39px; padding: 0 16px; border-radius: 100px; color: #444754; font-size: 14px; font-weight: 560; }
+.pocket-switch input:checked + span { background: #fff; color: #18192a; box-shadow: 0 1px 4px #20213b1f; }
+.pocket-switch input:focus-visible + span { outline: 3px solid #394bf2; outline-offset: 3px; }
+.pocket-steps ol { list-style: none; margin: 0; padding: 0; counter-reset: wallet-step; }
+.pocket-steps li { position: relative; padding-left: 33px; margin-bottom: 12px; font-size: 15px; line-height: 1.45; letter-spacing: -.018em; counter-increment: wallet-step; }
+.pocket-steps li::before { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: #fff; border: 1px solid #d5d5eb; font-size: 12px; font-weight: 620; color: #40458a; content: counter(wallet-step); }
+.pocket-steps > p { margin-top: 17px; color: #4b4a60; font-size: 13px; line-height: 1.48; max-width: 50ch; }
+.pocket-visual { position: relative; }
+.pocket-visual::before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  bottom: 5%;
+  width: 44%;
+  height: 6%;
+  background: radial-gradient(ellipse, #57437f50, #57437f00 69%);
+  filter: blur(5px);
+}
+.pocket-visual img {
+  position: absolute;
+  left: 14%;
+  top: 9%;
+  width: 66%;
+  height: 80%;
+  object-fit: contain;
+  transform: rotate(6deg);
+}
+.pocket-currency { position: absolute; z-index: 1; height: auto; pointer-events: none; user-select: none; }
+.pocket-euro { left: 4%; top: clamp(-75px,-5vw,-48px); width: clamp(64px, 6.6vw, 104px); transform: rotate(-12deg); }
+.pocket-dollar { right: clamp(-23px,-1.5vw,-8px); bottom: 7%; width: clamp(74px, 7.5vw, 118px); transform: rotate(11deg); }
+.pocket-guide .pocket-google, .pocket-guide:has(input[value="google"]:checked) .pocket-apple { display: none; }
+.pocket-guide:has(input[value="google"]:checked) .pocket-google { display: block; }
+
+@media (max-width: 950px) {
+  .pocket-copy { padding: 50px 27px 26px; }
+  .pocket-visual img { left: 9%; width: 76%; }
+}
+@media (max-width: 700px) {
+  .start-intro { display: block; }
+  .start-intro p { max-width: 44ch; margin: 13px 0 0; font-size: 15px; }
+  .start-flow { display: block; margin: 25px 0; }
+  .start-flow li { padding-left: 53px; padding-bottom: 25px; }
+  .start-flow li:last-child { padding-bottom: 4px; }
+  .start-flow li::before { position: absolute; top: -1px; left: 0; min-width: 40px; height: 31px; font-size: 13px; }
+  .start-flow li:not(:last-child)::after { inset: 36px auto 8px 20px; border-top: 0; border-left: 1px solid #d4d5e3; }
+  .start-flow p { margin-top: 6px; }
+  .support-plan-list { grid-template-columns: 1fr; gap: 10px; }
+  .pocket-guide { grid-template-columns: 1fr; min-height: 0; scroll-margin-top: 88px; border-radius: 24px; background-position: 46% center; }
+  .pocket-copy { padding: 28px 23px 0; }
+  .pocket-visual { height: clamp(230px, 65vw, 310px); }
+  .pocket-visual img { top: 1%; left: 20%; width: 60%; height: 88%; }
+  .pocket-visual::before { left: 30%; bottom: 6%; width: 38%; }
+  .pocket-euro { left: -7px; top: auto; bottom: clamp(118px, 34vw, 170px); width: clamp(63px, 13vw, 83px); }
+  .pocket-dollar { right: 6%; bottom: -17px; width: clamp(58px, 12vw, 77px); }
+  .pocket-switch span { min-height: 44px; }
+}
+@media (max-width: 540px) {
+  .support-summary { display: none; }
+  .support-plans > summary::after { margin-left: auto; }
+}

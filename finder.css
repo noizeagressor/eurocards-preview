@@ -1,0 +1,198 @@
+.finder-launch {
+  position: fixed;
+  z-index: 4;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 19px;
+  border: 1px solid #ffffff75;
+  border-radius: 999px;
+  background: #282a40;
+  color: #fff;
+  box-shadow: 0 5px 22px -6px #181e3a66;
+  font-size: 14px;
+  font-weight: 580;
+}
+.finder-launch .icon { width: 18px; height: 18px; color: #d9ddff; }
+.finder-launch.finder-obstructed:not(:focus-visible) { visibility: hidden; }
+.finder-launch[hidden], body:has(dialog[open], .primary-nav.is-open) .finder-launch { display: none; }
+.finder-open { overflow: hidden; }
+
+#finder-dialog {
+  position: fixed;
+  inset: auto max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) auto;
+  width: min(380px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: 0;
+  padding: 17px 23px 24px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #dfe3ed;
+  border-radius: 24px;
+  background: #fff;
+  color: #1c2336;
+  box-shadow: 0 12px 60px -18px #16203c66;
+}
+#finder-dialog::backdrop { background: #1a234539; }
+body:has(#product-dialog[open]) #finder-dialog { visibility: hidden; }
+body:has(#product-dialog[open]) #finder-dialog::backdrop { background: transparent; }
+#finder-dialog h2 {
+  margin: 13px 0 19px;
+  font-size: clamp(26px, 3.4vw, 31px);
+  line-height: 1.08;
+  letter-spacing: -.055em;
+  outline: none;
+}
+.finder-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 36px;
+  font-size: 12px;
+  font-weight: 570;
+  color: #5d6479;
+}
+.finder-toolbar button {
+  display: grid;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #f1f2f7;
+  color: #3c4358;
+}
+.finder-toolbar .finder-back { margin-left: -9px; background: transparent; }
+.finder-back .icon { width: 16px; height: 16px; transform: rotate(180deg); }
+.finder-close { margin: 0 -5px 0 auto; }
+.finder-close .icon { width: 17px; height: 17px; }
+.finder-options, .finder-checks { display: grid; gap: 7px; }
+.finder-option, .finder-checks label {
+  display: flex;
+  min-height: 47px;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 13px;
+  border: 1px solid #dfe3ed;
+  border-radius: 12px;
+  background: #f9f9fc;
+  color: #262c40;
+  font-size: 14px;
+  font-weight: 535;
+  line-height: 1.4;
+  text-align: left;
+}
+.finder-option .finder-chevron { width: 16px; height: 16px; margin-left: auto; color: #696f84; }
+.finder-option[aria-pressed="true"], .finder-checks label:has(:checked) { border-color: #8995ea; background: #f0f2ff; }
+.finder-hint, .finder-reason { color: #4a5369; font-size: 14px; line-height: 1.45; }
+.finder-hint { margin: -7px 0 16px; }
+.finder-checks { margin: 0 0 15px; padding: 0; border: 0; }
+.finder-checks label { cursor: pointer; }
+.finder-checks input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: #3c4ddb; }
+.finder-checks input:focus-visible { outline: 2px solid #394bf2; outline-offset: 3px; }
+.finder-primary {
+  display: flex;
+  width: 100%;
+  min-height: 46px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #394bf2;
+  color: white;
+  font-size: 14px;
+  font-weight: 590;
+}
+.finder-primary .icon { width: 17px; height: 17px; }
+.finder-product {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 13px;
+}
+.finder-product img { display: block; width: 86px; height: auto; }
+.finder-product h3 { font-size: 22px; font-weight: 630; line-height: 1.12; letter-spacing: -.055em; }
+.finder-product p { margin-top: 4px; color: #596377; font-size: 13px; }
+.finder-selected { margin-top: 12px; color: #414e64; font-size: 13px; line-height: 1.5; }
+.finder-selected strong { display: block; margin-bottom: 1px; color: #242c40; font-weight: 600; }
+.finder-cost {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0;
+  padding-block: 12px;
+  border-block: 1px solid #e4e6ee;
+  color: #576074;
+  font-size: 13px;
+}
+.finder-cost strong { color: #21283c; font-weight: 620; }
+.finder-alternate {
+  display: flex;
+  width: 100%;
+  min-height: 43px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: #f3f4f9;
+  color: #3c435b;
+  font-size: 13px;
+}
+.finder-alternate .icon { width: 15px; height: 15px; }
+.finder-result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 12px; margin: 10px 0 -6px; }
+.finder-result-actions a, .finder-result-actions button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #3947a8;
+  font-size: 13px;
+  font-weight: 565;
+}
+.finder-result-actions a .icon { width: 14px; height: 14px; }
+.finder-result-actions button { margin-left: auto; color: #555e72; }
+
+@media (max-width: 700px) {
+  .finder-launch {
+    right: max(11px, env(safe-area-inset-right));
+    bottom: max(10px, env(safe-area-inset-bottom));
+    min-height: 44px;
+    gap: 7px;
+    padding-inline: 14px;
+    font-size: 13px;
+  }
+  #finder-dialog {
+    inset: auto max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) auto;
+    width: min(380px, calc(100% - 16px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    padding: 13px 19px 20px;
+    border-radius: 21px;
+  }
+}
+@media (hover: hover) {
+  .finder-launch:hover { background: #373c57; }
+  .finder-option:hover, .finder-checks label:hover { border-color: #a6afdb; }
+  .finder-toolbar button:hover, .finder-alternate:hover { background: #e9ebf5; }
+  .finder-primary:hover { background: #2c3dcc; }
+  .finder-result-actions :is(a, button):hover { text-decoration: underline; text-underline-offset: 3px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #finder-dialog[open] { animation: finder-enter 170ms ease-out; }
+  @keyframes finder-enter {
+    from { opacity: .7; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
