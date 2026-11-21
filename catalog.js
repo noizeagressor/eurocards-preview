@@ -4,7 +4,7 @@
   const products = [
     {
       id: 'orange', name: 'Orange Card', country: 'Великобритания', flag: 'gb',
-      primaryFilter: 'travel', filters: ['travel', 'subscriptions', 'europe', 'us'], price: '24 000 ₽',
+      primaryFilter: 'travel', filters: ['travel', 'subscriptions', 'europe', 'us'], price: 'от 24 000 ₽',
       criteria: ['physical', 'iban', 'sepa', 'ach', 'rubTopup', 'stablecoins'],
       summary: 'Для поездок, подписок и переводов по Европе.',
       wallets: ['applepay', 'googlepay'],
@@ -23,7 +23,7 @@
     },
     {
       id: 'gold', name: 'Gold Card', country: 'Болгария', flag: 'bg',
-      primaryFilter: 'europe', filters: ['travel', 'europe'], price: '20 000 ₽',
+      primaryFilter: 'europe', filters: ['travel', 'europe'], price: 'от 20 000 ₽',
       criteria: ['physical', 'iban', 'sepa', 'swift', 'rubTopup', 'sepaInstant'],
       summary: 'Для зарплаты в евро и европейских переводов.',
       wallets: ['applepay'],
@@ -43,7 +43,7 @@
     },
     {
       id: 'ocean', name: 'Ocean Card', country: 'США', flag: 'us',
-      primaryFilter: 'us', filters: ['us'], price: '24 000 ₽',
+      primaryFilter: 'us', filters: ['us'], price: 'от 24 000 ₽',
       criteria: ['virtualOnly', 'ach', 'wire', 'stablecoins'],
       summary: 'Для выплат в долларах и переводов внутри США.',
       wallets: ['applepay', 'googlepay'],
@@ -62,7 +62,7 @@
     },
     {
       id: 'ruby', name: 'Ruby Card', country: 'Гонконг', flag: 'hk',
-      primaryFilter: 'subscriptions', filters: ['subscriptions'], price: '9 000 ₽',
+      primaryFilter: 'subscriptions', filters: ['subscriptions'], price: 'от 9 000 ₽',
       criteria: ['virtualOnly', 'stablecoins'],
       summary: 'Для подписок и покупок в зарубежных магазинах.',
       wallets: ['googlepay'],
@@ -107,19 +107,19 @@
   ];
 
   const sceneAccents = {
-    orange: ['mailer', 'cashback'],
-    gold: ['mailer', 'iban'],
+    orange: ['mailer', 'cashback', 'iban-glass'],
+    gold: ['mailer', 'iban-glass'],
     ocean: ['us', 'ach'],
     ruby: ['usdc', 'usdt']
   };
 
   function artwork(product) {
-    const [back, front] = sceneAccents[product.id];
-    const accent = (asset, layer) => `<img class="product-accent accent-${layer}" src="assets/catalog-accent-${asset}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
+    const [back, ...front] = sceneAccents[product.id];
+    const accent = (asset, layer) => `<img class="product-accent accent-${layer} accent-${asset}" src="assets/catalog-accent-${asset}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
     return `<span class="product-stage" aria-hidden="true"><span class="product-model">
       ${accent(back, 'back')}
       <img class="product-face" src="assets/catalog-${product.id}-face.webp" alt="" width="1104" height="696" loading="lazy" decoding="async" draggable="false">
-      ${accent(front, 'front')}
+      ${front.map(asset => accent(asset, 'front')).join('')}
     </span></span>`;
   }
 

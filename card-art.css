@@ -83,10 +83,10 @@
 }
 .accent-back { z-index: 0; }
 .accent-front { z-index: 2; }
-.catalog-orange .accent-back { width: 38%; left: -24%; top: -7%; transform: rotate(-12deg); }
-.catalog-orange .accent-front { width: 28%; right: -18%; top: 19%; transform: rotate(10deg); }
+.catalog-orange .accent-back { width: 34%; left: -21%; top: -6%; transform: rotate(-12deg); }
+.catalog-orange .accent-cashback { width: 25%; right: -17%; top: 21%; transform: rotate(10deg); }
 .catalog-gold .accent-back { width: 39%; right: -23%; top: -10%; transform: rotate(12deg); }
-.catalog-gold .accent-front { width: 23%; left: -16%; top: 54%; transform: rotate(-11deg); }
+.product-model .accent-iban-glass { width: 39%; left: -20%; top: 76%; transform: rotate(-8deg); }
 .catalog-ocean .accent-back { width: 43%; left: -25%; top: 5%; transform: rotate(-10deg); }
 .catalog-ocean .accent-front { width: 37%; right: -22%; top: 28%; transform: rotate(7deg); }
 .catalog-ruby .accent-back { width: 32%; right: -23%; top: -3%; transform: rotate(13deg); }
