@@ -23,12 +23,13 @@
     opener = link;
     const card = link.closest('.everyday-card');
     const from = card.getBoundingClientRect();
-    const image = card.querySelector(':scope > img').cloneNode();
+    const content = card.querySelector('template').content.cloneNode(true);
+    const image = content.querySelector('img') || card.querySelector('.everyday-object').cloneNode();
     image.removeAttribute('class');
     image.removeAttribute('loading');
     figure.replaceChildren(image);
     title.textContent = link.textContent;
-    details.replaceChildren(card.querySelector('template').content.cloneNode(true));
+    details.replaceChildren(content);
     dialog.dataset.theme = link.dataset.benefit;
     dialog.style.setProperty('--benefit-paper', getComputedStyle(card).backgroundColor);
     dialog.showModal();

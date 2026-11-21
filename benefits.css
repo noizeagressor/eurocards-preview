@@ -4,6 +4,8 @@
 .everyday, .start-guide {
   margin-block: clamp(68px, 7.8vw, 120px);
 }
+.everyday { width: 100%; overflow-x: clip; }
+.everyday > h2, .everyday-grid { width: var(--shell); margin-inline: auto; }
 #cards + .everyday { margin-top: clamp(6px, 1.6vw, 24px); }
 .everyday h2, .start-intro h2, .pocket-copy h2 {
   font-size: clamp(37px, 4.25vw, 64px);
@@ -14,23 +16,24 @@
 }
 .everyday-grid {
   display: grid;
+  isolation: isolate;
   grid-template-columns: minmax(0, 1.48fr) repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "travel rubles rubles"
     "travel tap plastic"
     "travel refund refund";
   gap: 14px;
-  margin-top: clamp(25px, 3.3vw, 44px);
+  margin-top: clamp(43px, 3.9vw, 60px);
 }
 .everyday-card {
+  --tile-pad: clamp(22px, 2.1vw, 30px);
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   min-width: 0;
-  overflow: hidden;
-  padding: clamp(22px, 2.1vw, 30px);
+  padding: var(--tile-pad);
   border-radius: 25px;
   color: #191c25;
 }
@@ -48,21 +51,58 @@
   line-height: 1.46;
   letter-spacing: -.016em;
 }
-.everyday-scene {
+.everyday-object {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   z-index: -1;
-  object-fit: cover;
+  display: block;
+  object-fit: contain;
   pointer-events: none;
+  user-select: none;
 }
 .everyday-travel {
   grid-area: travel;
-  justify-content: flex-end;
-  background: #f6baa0;
+  background: #f6baa0 url("assets/benefit-trip-backdrop.webp") center / cover;
 }
-.everyday-travel > img { object-position: 54% 45%; }
+.travel-still {
+  position: relative;
+  z-index: -1;
+  flex: 1 0 230px;
+  align-self: stretch;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  container-type: size;
+  margin: calc(0px - var(--tile-pad) - 24px) 0 clamp(18px, 2vw, 32px);
+  pointer-events: none;
+}
+.travel-model {
+  position: relative;
+  left: 3%;
+  width: min(88cqw, 58.49cqh);
+}
+.travel-model::before, .travel-model::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.travel-model::before {
+  left: 7%;
+  bottom: 1.5%;
+  width: 130%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 42% 50%, #894a2d91 2%, #9b543647 46%, transparent 73%);
+  transform: rotate(7deg) skewX(-26deg);
+  filter: blur(3px);
+}
+.travel-model::after {
+  inset: 0;
+  background:
+    radial-gradient(ellipse 10% 1.3% at 67% 98.8%, #71371ca8, transparent 90%),
+    radial-gradient(ellipse 9% 1% at 8% 89.1%, #7b402594, transparent 92%),
+    radial-gradient(ellipse 8% 1% at 91% 88.8%, #84472573, transparent 94%);
+}
+.travel-model img { display: block; position: relative; z-index: 1; width: 100%; height: auto; }
 .everyday-travel h3 {
   font-size: clamp(32px, 2.95vw, 45px);
   line-height: 1.03;
@@ -70,109 +110,110 @@
 .everyday-travel p { max-width: 37ch; color: #4e362e; }
 .everyday-rubles {
   grid-area: rubles;
+  z-index: 3;
   justify-content: center;
   min-height: 187px;
-  background: #d4c7f6;
-}
-.everyday-rubles > img {
-  left: auto;
-  width: 61%;
-  object-position: right 55%;
-  mask-image: linear-gradient(90deg, transparent, #000 28%);
+  padding-block: 48px 19px;
+  background: radial-gradient(ellipse at 88% 90%, #beabea, transparent 56%), #d4c7f6;
 }
 .everyday-rubles > div { width: 56%; }
+.everyday-rubles > img {
+  top: -14px;
+  right: -10px;
+  width: 40%;
+  height: calc(100% + 27px);
+  object-position: right top;
+}
 .everyday-tap, .everyday-plastic {
   justify-content: flex-end;
   min-height: 239px;
-  padding-top: 102px;
+  padding-top: clamp(119px, 9.4vw, 139px);
 }
-.everyday-tap { grid-area: tap; background: #e9eef2; }
-.everyday-plastic { grid-area: plastic; background: #f4eade; }
-.everyday-object { display: block; pointer-events: none; object-fit: contain; }
-.everyday-tap > .everyday-object, .everyday-plastic > .everyday-object {
-  position: absolute;
-  top: 6px;
-  right: 15px;
-  width: 115px;
-  height: 99px;
+.everyday-tap { grid-area: tap; z-index: 2; background: #e9eef2; }
+.everyday-plastic { grid-area: plastic; z-index: 1; background: #f4eade; }
+.everyday-tap > img, .everyday-plastic > img {
+  top: -10px;
+  right: -27px;
+  width: clamp(133px, 10.4vw, 157px);
+  height: auto;
 }
+.everyday-plastic > img { top: -14px; right: -41px; width: clamp(146px, 11.3vw, 169px); }
 .everyday-wallet-marks { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
 .everyday-wallet-marks img { display: block; width: 42px; height: 17px; object-fit: contain; }
 .everyday-refund {
   grid-area: refund;
-  flex-direction: row;
-  align-items: center;
-  gap: 18px;
-  padding-block: 17px;
+  justify-content: center;
+  min-height: 110px;
+  padding: 17px 54px 17px clamp(96px, 9vw, 134px);
   background: #e3efe6;
 }
-.everyday-refund .everyday-object { width: 69px; height: 69px; flex: none; }
+.everyday-refund > img {
+  left: 5px;
+  bottom: -27px;
+  width: clamp(104px, 8.8vw, 138px);
+  height: auto;
+  transform: rotate(-8deg);
+}
 .everyday-refund h3 { font-size: clamp(22px, 1.7vw, 25px); }
 .everyday-refund p { max-width: 57ch; margin-top: 5px; }
 @media (min-width: 541px) and (max-width: 860px) {
   .everyday-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas: "travel rubles" "travel tap" "plastic refund";
-    gap: 12px;
+    gap: 14px;
   }
-  .everyday-travel > img { object-position: 55% center; }
-  .everyday-rubles { min-height: 218px; justify-content: flex-end; padding-top: 100px; }
+  .everyday-rubles { justify-content: flex-end; padding-top: 106px; }
   .everyday-rubles > div { width: 100%; }
-  .everyday-rubles > img {
-    inset: 0 0 auto auto;
-    width: 190px;
-    height: 110px;
-    mask-image: linear-gradient(90deg, transparent, #000 35%), linear-gradient(0deg, transparent, #000 20%);
-    mask-composite: intersect;
-  }
-  .everyday-tap, .everyday-plastic { padding-top: 87px; min-height: 184px; }
-  .everyday-tap > .everyday-object, .everyday-plastic > .everyday-object { top: 1px; width: 94px; height: 84px; }
-  .everyday-refund { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 10px; }
-  .everyday-refund .everyday-object { margin-left: auto; }
+  .everyday-rubles > img { top: -16px; width: 145px; height: 116px; }
+  .everyday-tap, .everyday-plastic { padding-top: 100px; min-height: 197px; }
+  .everyday-plastic { padding-top: 108px; }
+  .everyday-tap > img { right: -17px; width: 115px; }
+  .everyday-plastic > img { right: -36px; width: 134px; }
+  .everyday-refund { justify-content: flex-start; padding: 49px var(--tile-pad) 83px; }
+  .everyday-refund > img { left: auto; right: 0; bottom: -19px; width: 102px; }
 }
 @media (max-width: 540px) {
   .everyday-grid {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "travel" "rubles" "tap" "plastic" "refund";
-    gap: 11px;
+    gap: 18px;
   }
-  .everyday-card { border-radius: 20px; padding: 20px; }
+  .everyday-card { --tile-pad: 20px; border-radius: 20px; }
   .everyday-card h3 { font-size: 23px; }
   .everyday-card p { font-size: 14px; line-height: 1.43; }
-  .everyday-travel { min-height: clamp(365px, 105vw, 460px); }
+  .everyday-travel { min-height: clamp(343px, 100vw, 446px); }
   .everyday-travel h3 { font-size: 34px; }
-  .everyday-rubles { min-height: 179px; }
-  .everyday-rubles > div { width: 66%; }
+  .travel-still { flex-basis: 217px; margin-top: calc(0px - var(--tile-pad) - 17px); margin-bottom: 18px; }
+  .everyday-rubles, .everyday-tap, .everyday-plastic {
+    justify-content: center;
+    min-height: 151px;
+    padding: 43px 0 var(--tile-pad) var(--tile-pad);
+  }
+  .everyday-rubles > div, .everyday-tap > div, .everyday-plastic > div { width: 66%; }
+  .everyday-rubles h3 { max-width: calc(100% - 16px); }
   .everyday-rubles > img {
-    width: 52%;
+    top: -8px;
+    right: -6px;
+    width: 37%;
     height: auto;
+  }
+  .everyday-tap > img, .everyday-plastic > img {
     top: 50%;
+    right: calc(-2.5% - 9px);
+    width: 34%;
     transform: translateY(-50%);
-    mask-image: linear-gradient(90deg, transparent, #000 30%), linear-gradient(0deg, transparent, #000 16% 85%, transparent);
-    mask-composite: intersect;
   }
-  .everyday-tap, .everyday-plastic, .everyday-refund {
-    flex-direction: row-reverse;
-    gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 130px;
-  }
-  .everyday-tap > .everyday-object, .everyday-plastic > .everyday-object, .everyday-refund > .everyday-object {
-    position: static;
-    width: 25%;
-    height: auto;
-    flex: none;
-  }
+  .everyday-plastic > img { right: calc(-5.2% - 9px); width: 38%; }
+  .everyday-refund { min-height: 133px; padding: 27px var(--tile-pad) 22px 88px; }
+  .everyday-refund > img { left: -4px; bottom: -20px; width: 93px; }
   .everyday-wallet-marks { margin-top: 9px; }
 }
 @media (max-width: 360px) {
-  .everyday-card { padding: 17px; }
+  .everyday-card { --tile-pad: 17px; }
   .everyday-card h3 { font-size: 22px; }
-  .everyday-travel { min-height: 428px; }
   .everyday-travel h3 { font-size: 30px; }
-  .everyday-rubles { min-height: 191px; }
-  .everyday-rubles > div { width: 69%; }
+  .everyday-refund { padding-left: 77px; }
+  .everyday-refund > img { width: 83px; }
 }
 
 .benefit-open { color: inherit; text-decoration: none; }
@@ -200,13 +241,13 @@
 }
 .everyday-card:has(.benefit-open:focus-visible) { outline: 3px solid #394bf2; outline-offset: 3px; }
 .benefit-open:focus-visible { outline: none; }
-.everyday-refund { padding-right: 55px; }
-@media (min-width: 541px) {
-  :is(.everyday-tap, .everyday-plastic) .benefit-open::after { right: auto; left: 14px; }
+:is(.everyday-rubles, .everyday-tap, .everyday-plastic) .benefit-open::after { right: auto; left: 14px; }
+@media (min-width: 541px) and (max-width: 860px) {
+  .everyday-refund .benefit-open::after { right: auto; left: 14px; }
 }
 @media (max-width: 540px) {
-  .everyday-refund { padding-right: 20px; }
   .benefit-open::after { top: 10px; right: 10px; width: 27px; height: 27px; }
+  .everyday-card:not(.everyday-travel) .benefit-open::after { right: auto; left: 12px; }
 }
 @media (hover: hover) {
   .benefit-open:hover::after { background-color: #fff; border-color: rgb(34 36 51 / 27%); }
