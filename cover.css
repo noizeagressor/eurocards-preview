@@ -47,17 +47,22 @@ html { scroll-padding-top: 92px; }
 .support-link:hover { background: #f0f2f8; }
 .header-issue:hover { background: #394bf2; }
 .hero {
+  --cover-inset: clamp(32px, 4.1vw, 62px);
+  --sbp-width: clamp(96px, 8.6vw, 122px);
+  --sbp-overhang: 20px;
+  overflow: visible;
   width: var(--shell);
   margin-inline: auto;
   border-radius: 32px;
   background: #e6edf6;
 }
+.alpine-scene { overflow: hidden; border-radius: inherit; }
 .hero-inner {
   z-index: 1;
   display: flex;
   align-items: center;
   min-height: 605px;
-  padding: 134px clamp(32px, 4.1vw, 62px) 39px;
+  padding: 134px var(--cover-inset) 39px;
 }
 .hero-copy { width: 57%; }
 .hero h1 {
@@ -81,8 +86,25 @@ html { scroll-padding-top: 92px; }
 }
 .hero .primary-button:hover { background: #2939cf; }
 .hero .primary-button .icon { width: 18px; height: 18px; }
-.hero-intro.sbp-intro { display: flex; align-items: flex-start; gap: 13px; }
-.sbp-symbol { display: block; flex: none; width: clamp(33px, 3.1vw, 42px); height: auto; margin-top: 2px; }
+.hero-intro.sbp-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(var(--sbp-width) * 1.164 - 14px);
+  padding-inline-start: calc(var(--sbp-width) - var(--sbp-overhang) - var(--cover-inset) + 15px);
+}
+.sbp-symbol {
+  position: absolute;
+  inset-inline-start: calc(0px - var(--cover-inset) - var(--sbp-overhang));
+  top: 50%;
+  width: var(--sbp-width);
+  height: auto;
+  transform: translateY(-50%);
+  filter: drop-shadow(2px 5px 4px rgb(37 52 75 / 16%));
+  pointer-events: none;
+  user-select: none;
+}
 .sbp-title { margin: 0 0 3px; color: #23283b; font-weight: 640; }
 .hero-wallets { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 37px; }
 .wallet-coins { display: flex; align-items: center; }
@@ -138,7 +160,8 @@ html { scroll-padding-top: 92px; }
 @media (max-width: 1080px) and (min-width: 701px) {
   .site-header { padding-inline: 13px; }
   .header-inner .primary-nav { gap: 16px; }
-  .hero-inner { min-height: 553px; padding: 120px 30px 32px; }
+  .hero { --cover-inset: 30px; --sbp-width: 92px; --sbp-overhang: 14px; }
+  .hero-inner { min-height: 553px; padding: 120px var(--cover-inset) 32px; }
   .hero h1 { font-size: clamp(40px, 5.1vw, 54px); }
   .hero-copy { width: 58%; }
   .hero-intro { max-width: 35ch; font-size: 15px; }
@@ -156,7 +179,8 @@ html { scroll-padding-top: 92px; }
   .service-float { bottom: 21px; }
 }
 @media (min-width: 701px) and (max-width: 800px) {
-  .hero-inner { min-height: 515px; padding: 116px 23px 30px; }
+  .hero { --cover-inset: 23px; --sbp-width: 84px; }
+  .hero-inner { min-height: 515px; padding: 116px var(--cover-inset) 30px; }
   .hero-copy { width: 59%; }
   .hero h1 { font-size: clamp(34px, 4.7vw, 38px); }
   .hero-intro { max-width: 33ch; }
@@ -173,9 +197,15 @@ html { scroll-padding-top: 92px; }
   .header-issue { min-height: 40px; padding-inline: 12px; font-size: 12px; }
   .header-actions .menu-toggle { width: 40px; height: 40px; border-radius: 50%; }
   .header-inner .primary-nav { top: calc(100% + 5px); left: 0; right: 0; gap: 0; border-radius: 20px; }
-  .hero { width: calc(100% - 12px); border-radius: 23px; }
+  .hero {
+    --cover-inset: 20px;
+    --sbp-width: clamp(73px, 18vw, 94px);
+    --sbp-overhang: 9px;
+    width: calc(100% - 24px);
+    border-radius: 23px;
+  }
   .hero-inner { display: flex; flex-direction: column; align-items: stretch; min-height: auto; padding: 0; }
-  .hero-copy { width: 100%; max-width: none; padding: 85px 23px 0; }
+  .hero-copy { width: 100%; max-width: none; padding: 85px var(--cover-inset) 0; }
   .hero h1 { font-size: clamp(35px, 8.9vw, 59px); line-height: .99; }
   .hero-intro { max-width: 36ch; margin-top: 16px; font-size: 14px; line-height: 1.45; }
   .hero-actions { margin-top: 18px; }
@@ -200,7 +230,7 @@ html { scroll-padding-top: 92px; }
   .header-issue { font-size: 11px; padding-inline: 9px; }
   .header-actions .support-link { display: none; }
   .header-inner .primary-nav .nav-support { display: block; color: #394bf2; }
-  .hero-copy { padding-inline: 17px; }
+  .hero { --cover-inset: 14px; --sbp-width: 66px; }
   .hero h1 { font-size: clamp(30px, 9.5vw, 34px); }
   .hero-wallets { gap: 6px; }
   .hero-wallets p { max-width: 90px; font-size: 10px; }

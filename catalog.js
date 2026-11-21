@@ -106,10 +106,10 @@
     ['Страна BIN', 'bin'], ['Пополнение', 'fundingShort'], ['Комиссии', 'feeShort']
   ];
 
-  function artwork(product, interactive = false) {
-    const photo = `assets/card-${product.id}.webp`;
-    if (!interactive) return `<img class="product-art" src="${photo}" alt="" decoding="async" draggable="false">`;
-    return `<span class="product-stage" aria-hidden="true" style="--card-face: url('assets/catalog-${product.id}-face.webp')"></span>`;
+  function artwork(product) {
+    return `<span class="product-stage" aria-hidden="true"><span class="product-model">
+      <img class="product-face" src="assets/catalog-${product.id}-face.webp" alt="" width="1104" height="696" loading="lazy" decoding="async" draggable="false">
+    </span></span>`;
   }
 
   function countryLabel(product) {
@@ -133,7 +133,7 @@
       return `
       <article class="product-tile catalog-${product.id}${featured ? ' catalog-featured' : ''}" aria-labelledby="tile-${product.id}">
         <div class="catalog-scene">
-          ${artwork(product, true)}
+          ${artwork(product)}
           ${featured ? `<a class="catalog-service-link" href="#services">
             <span class="catalog-service-marks" aria-hidden="true"><img src="assets/services/chatgpt.webp" alt=""><img src="assets/services/booking.webp" alt=""><img src="assets/services/uber.webp" alt=""></span>
             <span>Подобрать по сервису</span>${arrow}
@@ -183,7 +183,7 @@
     openDialog(product.name, `
       <div class="detail-content">
         <div class="detail-header">
-          ${artwork(product)}
+          <div class="catalog-scene product-art catalog-${product.id}">${artwork(product)}</div>
           <div>
             ${countryLabel(product)}
             <p class="dialog-intro">${product.description}</p>

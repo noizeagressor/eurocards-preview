@@ -1,10 +1,7 @@
 .product-art {
-  display: block;
+  --stage: #ece4cd;
+  --halo: #faf7e9;
   width: 100%;
-  height: auto;
-  aspect-ratio: 1.72;
-  object-fit: cover;
-  background: #f2f3f8;
   pointer-events: none;
 }
 
@@ -31,9 +28,10 @@
   position: relative; display: flex; min-width: 0; isolation: isolate; overflow: hidden;
   flex-direction: column; border: 1px solid var(--edge); border-radius: 24px; background: #fff; color: #222331;
 }
-#cards .catalog-orange { --stage: #ffd4a5; --halo: #fff2dd; --edge: #f1d4b9; }
-#cards .catalog-ocean { --stage: #c8dfe4; --halo: #ebf5f4; --edge: #d8e3e6; }
-#cards .catalog-ruby { --stage: #efd4db; --halo: #fff1ef; --edge: #ecdadc; }
+#cards .catalog-orange, .product-art.catalog-orange { --stage: #ffd4a5; --halo: #fff2dd; --edge: #f1d4b9; }
+#cards .catalog-gold, .product-art.catalog-gold { --face-angle: -12deg; }
+#cards .catalog-ocean, .product-art.catalog-ocean { --face-angle: -14deg; --stage: #c8dfe4; --halo: #ebf5f4; --edge: #d8e3e6; }
+#cards .catalog-ruby, .product-art.catalog-ruby { --face-angle: -13deg; --stage: #efd4db; --halo: #fff1ef; --edge: #ecdadc; }
 #cards .catalog-featured {
   --edge: #f1d4b9;
   grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr;
@@ -41,15 +39,39 @@
 }
 .catalog-scene { position: relative; display: grid; overflow: hidden; place-items: center; background: radial-gradient(ellipse at 22% 10%, var(--halo), transparent 75%), var(--stage); }
 #cards .catalog-featured .catalog-scene { grid-area: 1 / 2; align-content: center; background: transparent; }
-.product-stage { position: relative; width: 100%; display: block; aspect-ratio: 2.02; pointer-events: none; }
-.product-stage::before {
-  content: ""; position: absolute; inset: 77% 24% 1%;
-  background: radial-gradient(ellipse closest-side, #27202935, #392f390f 68%, transparent);
+.product-stage {
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  width: 100%;
+  aspect-ratio: 2.02;
+  place-items: center;
+  pointer-events: none;
 }
-.product-stage::after { content: ""; position: absolute; inset: 0; background: var(--card-face) center / 94% auto no-repeat; }
+.product-model {
+  position: relative;
+  height: 69%;
+  max-width: 72%;
+  aspect-ratio: 85.6 / 54;
+}
+.product-model::before {
+  content: "";
+  position: absolute;
+  top: 105%;
+  left: 2%;
+  width: 96%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse closest-side, #3d312533, #3d312512 57%, transparent);
+  filter: blur(2px);
+}
+.product-face {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: perspective(900px) rotateY(-7deg) rotateZ(var(--face-angle, -10deg));
+}
 .catalog-featured .product-stage { aspect-ratio: 1.74; max-width: 650px; }
-.catalog-featured .product-stage::after { background-size: 106% auto; }
-.catalog-featured .product-stage::before { inset: 84% 20% 0; }
+.catalog-featured .product-model { height: 73%; }
 
 .catalog-service-link {
   position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 11px;
@@ -96,13 +118,13 @@
 .catalog-conditions:hover { color: #27299c; }
 .catalog-conditions .icon { width: 14px; height: 14px; }
 #cards .catalog-filtered .product-stage { aspect-ratio: 2.1; max-height: 222px; }
-#cards .catalog-filtered .product-stage::after { background-size: contain; }
-#cards .catalog-filtered .product-stage::before { inset: 78% 25% 3%; }
 #cards .catalog-filtered .catalog-highlights { margin: 15px 0 18px; }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .product-stage::after { transition: transform 280ms cubic-bezier(.22, 1, .36, 1); }
-  .product-tile:hover .product-stage::after { transform: translateY(-4px) rotate(.8deg); }
+  .product-tile .product-face { transition: transform 260ms cubic-bezier(.22, 1, .36, 1); }
+  .product-tile:hover .product-face, .product-tile:has(.catalog-conditions:focus-visible) .product-face {
+    transform: translateY(-4px) perspective(900px) rotateY(-6deg) rotateZ(calc(var(--face-angle, -10deg) + .5deg));
+  }
 }
 
 @media (min-width: 1000px) {
@@ -129,7 +151,6 @@
   #cards .catalog-featured .product-body { padding: 20px; }
   #cards .catalog-featured .catalog-scene { width: 100%; }
   #cards .catalog-featured .product-stage { aspect-ratio: 1.98; }
-  #cards .catalog-featured .product-stage::after { background-size: 97% auto; }
   #cards .catalog-featured .catalog-service-link { min-height: 36px; justify-self: end; margin: 0 15px 0; padding: 5px 11px; }
   #cards .catalog-service-marks { display: none; }
   #cards .catalog-featured .product-title { font-size: 42px; margin-top: 13px; }

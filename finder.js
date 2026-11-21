@@ -67,7 +67,7 @@
       title = best ? 'Вам подойдёт' : 'Точного совпадения нет';
       content = best
         ? `<div class="finder-product">
-            <img src="assets/catalog-${best.id}-face.webp" alt="" width="92" height="58">
+            <img src="assets/card-${best.id}.webp" alt="" width="92" height="58">
             <div><h3>${best.name}</h3><p>${best.country}</p></div>
           </div>
           <p class="finder-reason">${best.highlights[0]}.</p>
