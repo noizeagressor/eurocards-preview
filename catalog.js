@@ -43,7 +43,7 @@
     },
     {
       id: 'ocean', name: 'Ocean Card', country: 'США', flag: 'us',
-      primaryFilter: 'us', filters: ['us'], price: 'По запросу',
+      primaryFilter: 'us', filters: ['us'], price: '24 000 ₽',
       criteria: ['virtualOnly', 'ach', 'wire', 'stablecoins'],
       summary: 'Для выплат в долларах и переводов внутри США.',
       wallets: ['applepay', 'googlepay'],

@@ -100,7 +100,8 @@ html { scroll-padding-top: 92px; }
   top: 50%;
   width: var(--sbp-width);
   height: auto;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(9deg);
+  transform-origin: 50% 61%;
   filter: drop-shadow(2px 5px 4px rgb(37 52 75 / 16%));
   pointer-events: none;
   user-select: none;

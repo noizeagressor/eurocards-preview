@@ -88,6 +88,25 @@
 #cards .catalog-featured .product-body { grid-area: 1 / 1; padding: clamp(28px, 3.5vw, 52px); padding-right: 0; }
 .catalog-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
 #cards .product-country { color: #4c4b53; font-size: 12px; font-weight: 550; }
+#cards .catalog-orange .catalog-meta { column-gap: 12px; }
+#cards .catalog-orange .product-country {
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border: 1px solid #a565352e;
+  border-radius: 10px;
+  background: #fffaf2;
+  color: #302b31;
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 650;
+  letter-spacing: -.025em;
+}
+#cards .catalog-orange .flag-gb {
+  flex: none;
+  width: 36px;
+  height: 18px;
+  border-radius: 3px;
+  background: #012169 url("assets/flag-gb.svg") center / cover no-repeat;
+}
 .catalog-wallets { display: inline-flex; align-items: center; gap: 5px; }
 .catalog-wallets img { width: 52px; height: 29px; padding: 5px 6px; object-fit: contain; background: #fff; border: 1px solid #322b431c; border-radius: 7px; }
 #cards .product-title { margin: 13px 0 6px; font-size: clamp(28px, 2.4vw, 38px); font-weight: 600; line-height: 1.05; letter-spacing: -.055em; }
