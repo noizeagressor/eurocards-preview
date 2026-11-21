@@ -13,7 +13,7 @@
       format: 'Виртуальная и физическая',
       bin: 'Великобритания',
       transfers: 'IBAN и SEPA в евро, ACH в долларах, Faster Payments в фунтах',
-      description: 'Для тех, кто хочет платить одной картой в поездках и дома. Виртуальную карту можно добавить в Apple Pay или Google Pay, а в дополнение заказать пластик.',
+      description: 'Для тех, кто хочет платить одной картой в поездках и дома. Виртуальную карту можно добавить в Apple Pay или Google Pay, а в дополнение заказать пластик. Размер кешбэка за подходящие покупки зависит от уровня программы.',
       fundingShort: 'Банковский перевод, стейблкоины, варианты из РФ',
       funding: 'Пополнить счёт можно переводом по реквизитам или стейблкоинами. Для рублей проверим доступный маршрут из ВТБ или Т-Банка и посчитаем, сколько придёт после обмена.',
       feeShort: 'Виртуальный выпуск и годовое обслуживание — 0 USD',
@@ -106,9 +106,20 @@
     ['Страна BIN', 'bin'], ['Пополнение', 'fundingShort'], ['Комиссии', 'feeShort']
   ];
 
+  const sceneAccents = {
+    orange: ['mailer', 'cashback'],
+    gold: ['mailer', 'iban'],
+    ocean: ['us', 'ach'],
+    ruby: ['usdc', 'usdt']
+  };
+
   function artwork(product) {
+    const [back, front] = sceneAccents[product.id];
+    const accent = (asset, layer) => `<img class="product-accent accent-${layer}" src="assets/catalog-accent-${asset}.webp" alt="" loading="lazy" decoding="async" draggable="false">`;
     return `<span class="product-stage" aria-hidden="true"><span class="product-model">
+      ${accent(back, 'back')}
       <img class="product-face" src="assets/catalog-${product.id}-face.webp" alt="" width="1104" height="696" loading="lazy" decoding="async" draggable="false">
+      ${accent(front, 'front')}
     </span></span>`;
   }
 
