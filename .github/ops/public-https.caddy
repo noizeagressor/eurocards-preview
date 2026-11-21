@@ -1,0 +1,20 @@
+http://evrocards.ru, http://www.evrocards.ru, http://xn--80adhb0axndk.xn--p1ai, http://www.xn--80adhb0axndk.xn--p1ai {
+	@challenge path /.well-known/acme-challenge/*
+	handle @challenge {
+		reverse_proxy eurocards-origin:8080
+	}
+	handle {
+		redir https://evrocards.ru{uri} 308
+	}
+}
+
+https://evrocards.ru, https://www.evrocards.ru, https://xn--80adhb0axndk.xn--p1ai, https://www.xn--80adhb0axndk.xn--p1ai {
+	tls /etc/letsencrypt/eurocards-edge/public/active/fullchain.pem /etc/letsencrypt/eurocards-edge/public/active/privkey.pem
+	@canonical host evrocards.ru
+	handle @canonical {
+		reverse_proxy eurocards-origin:8080
+	}
+	handle {
+		redir https://evrocards.ru{uri} 308
+	}
+}

@@ -17,6 +17,7 @@ import tempfile
 import time
 
 HOST = "origin.evrocards.ru"
+PUBLIC_HOSTS = ("evrocards.ru", "www.evrocards.ru", "xn--80adhb0axndk.xn--p1ai", "www.xn--80adhb0axndk.xn--p1ai")
 PREMSALES = "origin.premsales.ru"
 EDGE = "premsales-live-edge"
 VOLUME = "premsales-edge-certificates"
@@ -30,14 +31,17 @@ def output(*args, data=None):
                           check=True, timeout=30).stdout
 
 
-def read_tls(host, path):
+def read_tls(host, path, redirect=None):
     with socket.create_connection(("127.0.0.1", 443), timeout=5) as raw:
         with ssl.create_default_context().wrap_socket(raw, server_hostname=host) as tls:
             leaf = hashlib.sha256(tls.getpeercert(binary_form=True)).digest()
             tls.sendall(f"GET {path} HTTP/1.1\r\nHost: {host}\r\nConnection: close\r\n\r\n".encode("ascii"))
             with http.client.HTTPResponse(tls) as response:
                 response.begin()
-                if response.status != 200:
+                if redirect is not None:
+                    if response.status != 308 or response.getheader("Location") != redirect:
+                        raise ValueError(f"{host}{path} did not redirect to {redirect}")
+                elif response.status != 200:
                     raise ValueError(f"{host}{path} returned {response.status}")
                 return leaf, response.read(4096)
 
@@ -48,17 +52,21 @@ def verify_premsales():
         raise ValueError("PREMSALES origin identity check failed")
 
 
-def origin_is_current(expected):
-    leaf, body = read_tls(HOST, "/release.json")
+def site_is_current(expected, hosts):
+    leaf, body = read_tls(hosts[0], "/release.json")
     if not re.fullmatch(r"[0-9a-f]{40}", str(json.loads(body).get("revision", ""))):
         raise ValueError("EuroCards release marker is missing")
+    for alias in hosts[1:]:
+        alias_leaf, _ = read_tls(alias, "/release.json", f"https://{hosts[0]}/release.json")
+        if alias_leaf != expected:
+            return False
     return leaf == expected
 
 
-def wait_for_edge(expected):
+def wait_for_edge(expected, hosts):
     for attempt in range(8):
         try:
-            if not origin_is_current(expected):
+            if not site_is_current(expected, hosts):
                 raise ValueError("Edge is serving a different certificate")
             verify_premsales()
             return
@@ -68,13 +76,11 @@ def wait_for_edge(expected):
             time.sleep(1)
 
 
-def validate_pair(directory):
+def validate_pair(directory, hosts):
     cert, key = directory / "fullchain.pem", directory / "privkey.pem"
     output("openssl", "x509", "-in", cert, "-noout", "-checkend", "86400")
-    host_result = output("openssl", "x509", "-in", cert, "-noout", "-checkhost", HOST)
-    if b" does match certificate" not in host_result:
-        raise ValueError("Certificate hostname mismatch")
-    output("openssl", "verify", "-purpose", "sslserver", "-verify_hostname", HOST, "-untrusted", cert, cert)
+    for hostname in hosts:
+        output("openssl", "verify", "-purpose", "sslserver", "-verify_hostname", hostname, "-untrusted", cert, cert)
     public = output("openssl", "x509", "-in", cert, "-noout", "-pubkey")
     if (output("openssl", "pkey", "-pubin", "-outform", "DER", data=public)
             != output("openssl", "pkey", "-in", key, "-pubout", "-outform", "DER")):
@@ -102,19 +108,22 @@ def signal_edge():
     output("docker", "kill", "--signal=USR1", EDGE)
 
 
-def synchronize(install_only):
+def synchronize(install_only, public):
+    hosts = PUBLIC_HOSTS if public else (HOST,)
     if not install_only:
         subprocess.run([
             "docker", "run", "--rm", "--pull=never",
             "--mount", f"type=bind,src={CERTBOT},dst=/etc/letsencrypt",
             "--mount", f"type=bind,src={ACME},dst=/var/www/certbot",
-            "certbot/certbot:latest", "renew", "--cert-name", HOST,
+            "certbot/certbot:latest", "renew", "--cert-name", hosts[0],
             "--non-interactive", "--no-random-sleep-on-renew",
         ], check=True, timeout=900)
     mount = Path(output("docker", "volume", "inspect", "--format", "{{.Mountpoint}}", VOLUME).decode().strip())
     if not mount.is_absolute() or not mount.is_dir():
         raise ValueError("Certificate volume mountpoint is missing")
     base = mount / "eurocards-edge"
+    if public:
+        base = base / "public"
     versions = base / "versions"
     for directory in (base, versions):
         directory.mkdir(mode=0o700, exist_ok=True)
@@ -126,19 +135,19 @@ def synchronize(install_only):
     if ((active.exists() and old is None)
             or (old and not re.fullmatch(r"versions/[a-f0-9]{64}", old))):
         raise ValueError("Unexpected active certificate pointer")
-    source = CERTBOT / "live" / HOST
+    source = CERTBOT / "live" / hosts[0]
     with tempfile.TemporaryDirectory(prefix=".cert-", dir=versions) as work:
         candidate = Path(work) / "pair"
         candidate.mkdir(mode=0o700)
         for name in ("fullchain.pem", "privkey.pem"):
             shutil.copyfile(source / name, candidate / name)
             (candidate / name).chmod(0o600)
-        leaf = validate_pair(candidate)
+        leaf = validate_pair(candidate, hosts)
         fingerprint = hashlib.sha256((candidate / "fullchain.pem").read_bytes()).hexdigest()
         target = "versions/" + fingerprint
         final = base / target
         if final.exists():
-            if final.is_symlink() or validate_pair(final) != leaf or (candidate / "fullchain.pem").read_bytes() != (final / "fullchain.pem").read_bytes():
+            if final.is_symlink() or validate_pair(final, hosts) != leaf or (candidate / "fullchain.pem").read_bytes() != (final / "fullchain.pem").read_bytes():
                 raise ValueError("Invalid stored certificate generation")
         else:
             os.replace(candidate, final)
@@ -151,7 +160,7 @@ def synchronize(install_only):
     verify_premsales()
     if old == target:
         try:
-            already_served = origin_is_current(leaf)
+            already_served = site_is_current(leaf, hosts)
         except (ValueError, OSError, http.client.HTTPException):
             already_served = False
         if already_served:
@@ -163,13 +172,13 @@ def synchronize(install_only):
         validate_config()
         signal_edge()
         signalled = True
-        wait_for_edge(leaf)
+        wait_for_edge(leaf, hosts)
     except Exception:
         point_at(base, old)
         if signalled and old is not None:
             validate_config()
             signal_edge()
-            wait_for_edge(validate_pair(base / old))
+            wait_for_edge(validate_pair(base / old, hosts), hosts)
         raise
     # Keep the previously active generation available for a manual rollback.
     for directory in versions.iterdir():
@@ -182,6 +191,7 @@ def synchronize(install_only):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--install-only", action="store_true", help="stage the first already-issued certificate")
+    parser.add_argument("--public", action="store_true", help="manage the four visitor hostnames")
     args = parser.parse_args()
     if os.geteuid() != 0:
         sys.exit("Run as root")
@@ -189,6 +199,6 @@ if __name__ == "__main__":
     try:
         with (CERTBOT / ".sync-edge.lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
-            synchronize(args.install_only)
+            synchronize(args.install_only, args.public)
     except (OSError, ValueError, subprocess.SubprocessError, http.client.HTTPException) as exc:
         sys.exit(str(exc))

@@ -47,7 +47,7 @@ def addresses(base):
     return result
 
 
-def public_status(base, origin_ips, explicit):
+def public_status(base, origin_ips, explicit, require_cdn=False):
     resolved = addresses(base)
     if resolved == {PARKING_IP} and not explicit:
         return "Pending — DNS still points only to Beget parking (87.236.19.118)"
@@ -55,7 +55,7 @@ def public_status(base, origin_ips, explicit):
         if len(resolved) == 1:
             raise ValueError("Explicit public URL still points to Beget parking (87.236.19.118)")
         raise ValueError("DNS mixes Beget parking with other addresses")
-    if resolved & origin_ips:
+    if require_cdn and resolved & origin_ips:
         raise ValueError("DNS points directly to the OVH origin instead of the CDN")
     return None
 
@@ -94,6 +94,7 @@ def verify(revision):
     if not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise ValueError("Expected a full Git revision")
     configured = os.getenv("EUROCARDS_PUBLIC_URLS", "").split()
+    require_cdn = os.getenv("EUROCARDS_REQUIRE_CDN", "").strip().lower() == "true"
     public = list(dict.fromkeys(site_url(item) for item in configured)) or DEFAULT_PUBLIC
     home = git_file(revision, "index.html")
     code_urls = re.findall(rb'(?:href|src)="([a-z0-9-]+\.(?:css|js)(?:\?[^"]*)?)"', home)
@@ -129,7 +130,7 @@ def verify(revision):
     published = []
     for base in public:
         try:
-            pending = public_status(base, origin_ips, bool(configured))
+            pending = public_status(base, origin_ips, bool(configured), require_cdn)
             if pending:
                 statuses[base] = pending
             else:

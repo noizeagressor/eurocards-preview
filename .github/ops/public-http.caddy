@@ -1,0 +1,3 @@
+http://evrocards.ru, http://www.evrocards.ru, http://xn--80adhb0axndk.xn--p1ai, http://www.xn--80adhb0axndk.xn--p1ai {
+	reverse_proxy eurocards-origin:8080
+}

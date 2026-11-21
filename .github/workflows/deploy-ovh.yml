@@ -35,7 +35,7 @@ jobs:
       - name: Test release switching and rollback
         run: python3 -B -m unittest discover -s .github/ops -v
 
-      - name: Test public DNS and CDN release checks
+      - name: Test public DNS and release checks
         run: python3 -B -m unittest discover -s .github/scripts -v
 
       - name: Check pages, JavaScript, assets and build the static archive
@@ -50,4 +50,5 @@ jobs:
           EXPECTED_REVISION: ${{ inputs.expected_revision }}
           EUROCARDS_DEPLOY_KEY: ${{ secrets.EUROCARDS_DEPLOY_KEY }}
           EUROCARDS_PUBLIC_URLS: ${{ vars.EUROCARDS_PUBLIC_URLS }}
+          EUROCARDS_REQUIRE_CDN: ${{ vars.EUROCARDS_REQUIRE_CDN }}
         run: bash .github/scripts/deploy.sh

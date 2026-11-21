@@ -30,8 +30,8 @@ class PublicChecks(unittest.TestCase):
             ((parking,), False, "Pending"), ((parking,), True, "Explicit public URL"),
             ((parking, "2001:db8::2"), False, "mixes Beget parking"),
             (("2001:db8::2",), False, None),
-            (("::ffff:57.129.189.244",), True, "directly to the OVH origin"),
-            (("2001:db8::10", "192.0.2.1"), False, "directly to the OVH origin"),
+            (("::ffff:57.129.189.244",), True, None),
+            (("2001:db8::10", "192.0.2.1"), False, None),
             ((), False, "no A or AAAA"),
         ]
         for ips, explicit, expected in cases:
@@ -46,6 +46,32 @@ class PublicChecks(unittest.TestCase):
         with patch.object(socket, "getaddrinfo", side_effect=socket.gaierror("NXDOMAIN")):
             with self.assertRaisesRegex(ValueError, "DNS lookup.*failed"):
                 verify.public_status(base, origin_ips, False)
+        with patch.object(socket, "getaddrinfo", return_value=dns_records("::ffff:57.129.189.244", "192.0.2.1")):
+            with self.assertRaisesRegex(ValueError, "directly to the OVH origin"):
+                verify.public_status(base, origin_ips, True, require_cdn=True)
+        with patch.object(socket, "getaddrinfo", return_value=dns_records("192.0.2.1")):
+            self.assertIsNone(verify.public_status(base, origin_ips, True, require_cdn=True))
+
+    def test_all_direct_domains_verify_content(self):
+        revision = "d" * 40
+        marker = json.dumps({"revision": revision}).encode()
+        def response(url, allowed, path):
+            self.assertIn(url.removesuffix(path), allowed)
+            return (marker, {"Cache-Control": "no-store"}) if path == "/release.json" else (b"home", {})
+        with (patch.dict(os.environ, {"EUROCARDS_PUBLIC_URLS": " ".join(verify.DEFAULT_PUBLIC),
+                                      "EUROCARDS_REQUIRE_CDN": "", "GITHUB_STEP_SUMMARY": ""}),
+              patch.object(socket, "getaddrinfo", return_value=dns_records(str(verify.OVH_IP))),
+              patch.object(verify, "git_file", return_value=b"home"),
+              patch.object(verify, "fetch", side_effect=response) as fetch,
+              patch.object(verify, "check_browser") as browser,
+              contextlib.redirect_stdout(io.StringIO()) as output):
+            verify.verify(revision)
+        for base in (verify.ORIGIN, *verify.DEFAULT_PUBLIC):
+            allowed = {verify.ORIGIN} if base == verify.ORIGIN else set(verify.DEFAULT_PUBLIC)
+            fetch.assert_any_call(base + "/release.json", allowed, "/release.json")
+            fetch.assert_any_call(base + "/", allowed, "/")
+            self.assertIn(f"`{base}`: Verified", output.getvalue())
+        browser.assert_called_once_with(verify.DEFAULT_PUBLIC[0] + "/")
 
     def test_redirects(self):
         live, alias, parked, _ = verify.DEFAULT_PUBLIC
